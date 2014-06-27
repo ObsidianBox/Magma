@@ -1,0 +1,32 @@
+# Source language and JDK version to use
+language: java
+jdk: oraclejdk7
+
+# Compile and package JAR and set build properties
+install:
+  - ./gradlew setupCIWorkspace
+  - ./gradlew build -PbuildNumber=$TRAVIS_BUILD_NUMBER -PciSystem=travis -Pcommit=${TRAVIS_COMMIT:0:7}
+
+# Perform steps after compilation/test success
+after_success:
+  # Generate Cobertura report for Coveralls.io
+  - "./gradlew cobertura coveralls -PserviceJobId=$TRAVIS_JOB_ID"
+  # Check if commit s not a pull request, if git repo is official, and if branch is master. If checks pass, add libs and deploy artifacts to Maven repository.
+  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == ObsidianBox/Magma ]] && [[ $TRAVIS_BRANCH == master ]] && ./gradlew uploadArchives"
+
+# Notification services
+notifications:
+  # Disable build status email notifications, until the issue with forks is fixed
+  email: false
+  webhooks:
+    # Send build information and status to Notifico
+    - http://n.tkte.ch/h/2962/SzSVw1VEYa9XZY34e5YNIz_C
+
+# Environmental system variables
+env:
+  global:
+    # Make the log output cleaner
+    - TERM=dumb
+    # Super secure, encrypted variables! Ssssh!
+    - secure: "TMewdlmFgkmxuhx7SIAkOE51facUroOuI+gOvhwSkIURHky+ckn1zm0nR3/Ew3+5Fsh07QeAv16gryCWLR3sbRNTRywzmwJ7jMZARlzv47936ZLCZGp0IMKOPtRB43z0Gs6F5YWkWNAZkD7FRR+5QbDOdFITq2nYMfdbBNJj1uA="
+    - secure: "l5FG4sh7Qd9DshZBGOuu5rKip7X1JYbO48iFwtecTFlp7ua2DXSS/hv4ZJbFrBauaVwAxLQkBIJsD7MR84MWlmj1+2sIH+8awpxJ46KSVhVxXHznZFNx9xO4l7Edvg5nqVY91BICOgmbqbSAQ5d75AY0LIxoqRhhhKmUSpE/IvU="
