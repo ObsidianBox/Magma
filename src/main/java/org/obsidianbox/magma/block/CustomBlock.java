@@ -23,12 +23,15 @@
  */
 package org.obsidianbox.magma.block;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
+import org.obsidianbox.magma.block.renderer.BlockRenderer;
+import org.obsidianbox.magma.block.renderer.SimpleOBJRenderer;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomBlock extends Block {
@@ -53,6 +56,10 @@ public class CustomBlock extends Block {
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
 
         // TODO IF RenderingType.OBJ, get block renderer and add to it
+        if (type == RenderingType.OBJ) {
+            BlockRenderer blockRenderer = addon.getGame().getBlockRenderer();
+            blockRenderer.put(addon, identifier, this);
+        }
     }
 
     @Override

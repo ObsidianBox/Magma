@@ -29,6 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.obsidianbox.magma.addon.AddonManager;
+import org.obsidianbox.magma.block.renderer.BlockRenderer;
 import org.obsidianbox.magma.lang.LanguageRegistry;
 import org.obsidianbox.magma.message.MessagePipeline;
 import org.obsidianbox.magma.renderer.Renderer;
@@ -43,6 +44,7 @@ public final class Game {
     private LanguageRegistry languages;
     private MessagePipeline messagePipeline;
     private Renderer guiRenderer;
+    private BlockRenderer blockRenderer;
     private CreativeTabs tabs;
 
     public Game(Side side) {
@@ -127,6 +129,23 @@ public final class Game {
             throw new IllegalArgumentException("Setting a null gui renderer instance is not allowed!");
         }
         this.guiRenderer = guiRenderer;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public BlockRenderer getBlockRenderer() {
+        return blockRenderer;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setBlockRenderer(BlockRenderer blockRenderer) {
+        if (this.blockRenderer != null) {
+            throw new IllegalStateException("Setting the block renderer again is not allowed!");
+        }
+
+        if (blockRenderer == null) {
+            throw new IllegalArgumentException("Setting a null block renderer instance is not allowed!");
+        }
+        this.blockRenderer = blockRenderer;
     }
 
     public CreativeTabs getTabs() {
