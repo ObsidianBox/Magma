@@ -1,5 +1,5 @@
 /**
- * This file is part of Obsidian, licensed under the MIT License (MIT).
+ * This file is part of Magma, licensed under the MIT License (MIT).
  *
  * Copyright (c) 2013-2014 ObsidianBox <http://obsidianbox.org/>
  *

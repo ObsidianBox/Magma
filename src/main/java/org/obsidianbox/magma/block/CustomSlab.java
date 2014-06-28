@@ -1,5 +1,5 @@
 /**
- * This file is part of Obsidian, licensed under the MIT License (MIT).
+ * This file is part of Magma, licensed under the MIT License (MIT).
  *
  * Copyright (c) 2013-2014 ObsidianBox <http://obsidianbox.org/>
  *
@@ -69,13 +69,16 @@ public class CustomSlab extends BlockSlab {
             doubleSlab = new CustomSlab(addon, identifier, displayName, showInCreativeTab, true);
 
             register();
+        } else {
+            doubleSlab = this;
         }
     }
 
     private void register() {
         // Register our slabs, doubleSlab will be registered with '_double' appended at the end.
-        GameRegistry.registerBlock(singleSlab, CustomSlabItem.class, addon.getDescription().getIdentifier() + "_" + identifier);
-        GameRegistry.registerBlock(doubleSlab, CustomSlabItem.class, addon.getDescription().getIdentifier() + "_" +  identifier + "_double");
+        GameRegistry.registerBlock(singleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerBlock(doubleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier + "_double");
+        GameRegistry.registerItem(new CustomSlabItem(singleSlab, singleSlab, doubleSlab), addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override
