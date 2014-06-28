@@ -45,6 +45,9 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds' // Always check for new snapshots
 }
 
+// Exclude reobfuscation task
+gradle.startParameter.excludedTaskNames += "reobf"
+
 // Plugin repositories and dependencies
 buildscript {
     repositories {
