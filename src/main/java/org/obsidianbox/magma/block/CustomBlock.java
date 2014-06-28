@@ -81,6 +81,14 @@ public class CustomBlock extends Block {
     }
 
     @Override
+    public boolean isOpaqueCube() {
+        if (type != RenderingType.DEFAULT) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public final String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
     }
