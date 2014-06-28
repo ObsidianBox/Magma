@@ -1,6 +1,6 @@
-Obsidian [![Build Status](https://travis-ci.org/ObsidianBox/Magma.png?branch=master)](https://travis-ci.org/ObsidianBox/Magma) [![Coverage Status](https://coveralls.io/repos/ObsidianBox/Magma/badge.png)](https://coveralls.io/r/ObsidianBox/Magma)
+Magma [![Build Status](https://travis-ci.org/ObsidianBox/Magma.png?branch=master)](https://travis-ci.org/ObsidianBox/Magma) [![Coverage Status](https://coveralls.io/repos/ObsidianBox/Magma/badge.png)](https://coveralls.io/r/ObsidianBox/Magma)
 =============
-Obsidian is a framework that extends Forge to deliver server-side content on demand. It is licensed under the [MIT License]
+Magma is the api for a framework that extends Forge to deliver server-side content on demand. It is licensed under the [MIT License]. The client mod that handles loading and running the content is provided by [Obsidian](https://github.com/ObsidianBox/Obsidian)
 
 * [Homepage]
 * [Source]
