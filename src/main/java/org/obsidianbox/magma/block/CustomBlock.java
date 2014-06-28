@@ -37,6 +37,7 @@ import org.obsidianbox.magma.lang.Languages;
 public class CustomBlock extends Block {
     private final Addon addon;
     private final String identifier;
+    private final RenderingType type;
 
     public CustomBlock(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
         this(addon, identifier, displayName, showInCreativeTab, RenderingType.DEFAULT);
@@ -46,6 +47,7 @@ public class CustomBlock extends Block {
         super(Materials.CUSTOM_BLOCK);
         this.addon = addon;
         this.identifier = identifier;
+        this.type = type;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
         setBlockTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
@@ -60,6 +62,22 @@ public class CustomBlock extends Block {
             BlockRenderer blockRenderer = addon.getGame().getBlockRenderer();
             blockRenderer.put(addon, identifier, this);
         }
+    }
+
+    @Override
+    public int getRenderType() {
+        if (type != RenderingType.DEFAULT) {
+            return addon.getGame().getBlockRenderer().getRenderId();
+        }
+        return super.getRenderType();
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        if (type != RenderingType.DEFAULT) {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -29,8 +29,11 @@ import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.*;
 import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
@@ -43,16 +46,25 @@ public class SimpleOBJRenderer extends BlockRenderer {
      */
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
+        System.out.println("Got inventory block request");
     }
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         if (registered.contains(block)) {
+            Tessellator tes = Tessellator.instance;
+            tes.draw();
+            tes.startDrawing(GL11.GL_TRIANGLE_FAN);
             GL11.glPushMatrix();
             GL11.glTranslated(x, y, z);
             Minecraft.getMinecraft().renderEngine.bindTexture(textures.get(block));
-            models.get(block).renderAll();
+            ((WavefrontObject)models.get(block)).tessellateAll(tes);
             GL11.glPopMatrix();
+            tes.draw();
+            tes.startDrawingQuads();
+            System.out.println("Was registered");
+        } else {
+            System.out.println("not registered");
         }
         // TODO Investigate meaning of return value
         return true;
