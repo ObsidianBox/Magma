@@ -23,8 +23,10 @@
  */
 package org.obsidianbox.magma.addon;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 
+import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Logger;
 import org.obsidianbox.magma.Game;
 
@@ -50,6 +52,10 @@ public abstract class Addon {
     }
 
     public void onDisable() {
+    }
+
+    public InputStream getResource(ResourceLocation resourceLocation) {
+        return null;
     }
 
     public final boolean isInitialized() {
