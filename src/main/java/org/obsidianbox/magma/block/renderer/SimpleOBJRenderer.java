@@ -26,11 +26,16 @@ package org.obsidianbox.magma.block.renderer;
 import java.util.HashMap;
 import java.util.Map;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.*;
 import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
@@ -43,16 +48,28 @@ public class SimpleOBJRenderer extends BlockRenderer {
      */
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
+      //  System.out.println("Got inventory block request");
+        Minecraft.getMinecraft().renderEngine.bindTexture(textures.get(block));
+        GL11.glPushMatrix();
+        models.get(block).renderAll();
+        GL11.glPopMatrix();
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
     }
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         if (registered.contains(block)) {
-            GL11.glPushMatrix();
-            GL11.glTranslated(x, y, z);
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.draw();
             Minecraft.getMinecraft().renderEngine.bindTexture(textures.get(block));
+            GL11.glPushMatrix();
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glTranslated(x,y,z);
             models.get(block).renderAll();
             GL11.glPopMatrix();
+            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+            Tessellator.instance.startDrawingQuads();
+        } else {
         }
         // TODO Investigate meaning of return value
         return true;
@@ -63,7 +80,7 @@ public class SimpleOBJRenderer extends BlockRenderer {
      */
     @Override
     public final boolean shouldRender3DInInventory(int modelId) {
-        return false;
+        return true;
     }
 
     @Override
