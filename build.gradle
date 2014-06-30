@@ -20,7 +20,7 @@ ext.inceptionYear = '2013'
 ext.currentYear = '2014'
 ext.packaging = 'jar'
 ext.url = 'http://obsidianbox.org'
-ext.description = 'Magma is the API that powers Obsidian.'
+ext.description = 'Magma is an API that extends Minecraft Forge to easier deliver content through addons.'
 ext.organization = 'ObsidianBox'
 
 // Define variables
@@ -41,6 +41,16 @@ buildscript {
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
         classpath 'net.saliman:gradle-cobertura-plugin:2.2.4' // Coveralls plugin dependency
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:0.4.0'
+    }
+}
+
+// Project repositories
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = 'sonatype-nexus-public'
+        url = 'https://oss.sonatype.org/content/repositories/public/'
     }
 }
 
@@ -105,7 +115,7 @@ uploadArchives {
 
         // Set all artifacts
         artifacts {
-            archives jar, javadocJar, sourcesJar
+            archives jar, javadocJar, sourcesJar, deobfJar
         }
 
         // Tasks and variables based on if release or snapshot
