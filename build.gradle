@@ -115,7 +115,7 @@ uploadArchives {
 
         // Set all artifacts
         artifacts {
-            archives jar, javadocJar, sourcesJar, deobfJar
+            archives jar, javadocJar, sourcesJar
         }
 
         // Tasks and variables based on if release or snapshot
