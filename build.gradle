@@ -1,10 +1,10 @@
 // Default tasks
-defaultTasks 'licenseFormatMain', 'licenseFormatTest', 'build', 'install'
+defaultTasks 'licenseFormat', 'build', 'install'
 
 // Apply plugins
+apply from: 'http://obsidianbox.org/build/magma_1.7.10-10.13.0.1152.gradle'
 apply plugin: 'cobertura'
 apply plugin: 'coveralls'
-apply plugin: 'forge'
 apply plugin: 'license'
 apply plugin: 'maven'
 apply plugin: 'signing'
@@ -23,32 +23,12 @@ ext.url = 'http://obsidianbox.org'
 ext.description = 'Magma is the API that powers Obsidian.'
 ext.organization = 'ObsidianBox'
 
-// Minecraft version
-ext.minecraftVersion = '1.7.2'
-
-// MinecraftForge version
-minecraft {
-    version = '1.7.2-10.12.2.1121'
-}
-
-// Minimum version of Java required
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
-
 // Define variables
 ext.buildNumber = project.hasProperty("buildNumber") ? buildNumber : '0'
 ext.ciSystem = project.hasProperty("ciSystem") ? ciSystem : 'unknown'
 ext.commit = project.hasProperty("commit") ? commit : 'unknown'
 
-// Configuration settings
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds' // Always check for new snapshots
-}
-
-// Exclude reobfuscation task
-gradle.startParameter.excludedTaskNames += "reobf"
-
-// Plugin repositories and dependencies
+// Gradle repositories and dependencies
 buildscript {
     repositories {
         mavenCentral()
@@ -56,29 +36,15 @@ buildscript {
             name = 'sonatype-nexus-public'
             url = 'https://oss.sonatype.org/content/repositories/public/'
         }
-        maven {
-            name = 'forge-repo'
-            url = 'http://files.minecraftforge.net/maven/'
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.3-SNAPSHOT'
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
         classpath 'net.saliman:gradle-cobertura-plugin:2.2.4' // Coveralls plugin dependency
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:0.4.0'
     }
 }
 
-// Non-plugin repositories and dependencies
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        name = 'sonatype-nexus-public'
-        url = 'https://oss.sonatype.org/content/repositories/public/'
-    }
-}
-
+// Project dependencies
 dependencies {
     compile 'junit:junit:4.11'
     compile 'org.spout:caustic-lwjgl:1.0.0-SNAPSHOT'

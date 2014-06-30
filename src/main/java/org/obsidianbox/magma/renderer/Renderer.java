@@ -252,7 +252,7 @@ public abstract class Renderer {
         previousScaledAspectRatio = scaledAspectRatio;
         previousScaledFactor = scaledFactor;
 
-        scaledResolution = new ScaledResolution(Minecraft.getMinecraft().gameSettings, Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
+        scaledResolution = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
         scaledAspectRatio = scaledResolution.getScaledWidth() / scaledResolution.getScaledHeight();
         scaledFactor = scaledResolution.getScaleFactor();
     }
