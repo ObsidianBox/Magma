@@ -2,7 +2,7 @@
 defaultTasks 'licenseFormat', 'build', 'install'
 
 // Apply plugins
-apply from: 'http://obsidianbox.org/build/1.7.10-10.13.0.1152.gradle'
+apply from: 'magma.gradle'
 apply plugin: 'cobertura'
 apply plugin: 'coveralls'
 apply plugin: 'license'
@@ -41,9 +41,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.9.0'
         classpath 'net.saliman:gradle-cobertura-plugin:2.2.4' // Coveralls plugin dependency
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:0.4.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:0.5.0'
     }
 }
 
