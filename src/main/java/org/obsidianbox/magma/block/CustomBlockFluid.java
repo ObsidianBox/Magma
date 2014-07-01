@@ -37,8 +37,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
@@ -63,7 +61,7 @@ public class CustomBlockFluid extends BlockFluidClassic {
         this.identifier = identifier;
 
         setBlockName(addon.getDescription() + ".title.block" + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + "fluids/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":fluids/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -109,13 +107,17 @@ public class CustomBlockFluid extends BlockFluidClassic {
 
     @Override
     public boolean canDisplace(IBlockAccess world, int x, int y, int z) {
-        if (world.getBlock(x, y, z).getMaterial().isLiquid()) return false;
+        if (world.getBlock(x, y, z).getMaterial().isLiquid()) {
+            return false;
+        }
         return super.canDisplace(world, x, y, z);
     }
 
     @Override
     public boolean displaceIfPossible(World world, int x, int y, int z) {
-        if (world.getBlock(x, y, z).getMaterial().isLiquid()) return false;
+        if (world.getBlock(x, y, z).getMaterial().isLiquid()) {
+            return false;
+        }
         return super.displaceIfPossible(world, x, y, z);
     }
 }

@@ -26,7 +26,7 @@ package org.obsidianbox.magma.block;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.client.resources.I18n;
-import org.obsidianbox.magma.Game;
+
 import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
@@ -41,7 +41,7 @@ public class CustomMovingBlock extends BlockFalling {
         this.identifier = identifier;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier()  + ":" + "moving/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":moving/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());

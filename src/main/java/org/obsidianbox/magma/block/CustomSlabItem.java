@@ -27,7 +27,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemSlab;
 
 public class CustomSlabItem extends ItemSlab {
-
     public CustomSlabItem(Block block, CustomSlab singleSlab, CustomSlab doubleSlab) {
         super(singleSlab, singleSlab, doubleSlab, false);
     }

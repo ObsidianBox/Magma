@@ -27,7 +27,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import org.obsidianbox.magma.Game;
+
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -40,7 +40,7 @@ public class CustomAxe extends ItemAxe {
         this.addon = addon;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier()  + ":" + "axes/" + identifier);
+        setTextureName(addon.getDescription().getIdentifier() + ":axes/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());

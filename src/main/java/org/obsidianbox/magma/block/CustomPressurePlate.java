@@ -51,7 +51,7 @@ public class CustomPressurePlate extends BlockPressurePlate {
         this.identifier = identifier;
 
         setBlockName(addon.getDescription() + ".title.block" + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + "pressure_plates/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":pressure_plates/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());

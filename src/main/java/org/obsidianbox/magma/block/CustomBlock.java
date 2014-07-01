@@ -23,15 +23,13 @@
  */
 package org.obsidianbox.magma.block;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
-import org.obsidianbox.magma.Game;
+
 import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.block.renderer.BlockRenderer;
-import org.obsidianbox.magma.block.renderer.SimpleOBJRenderer;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomBlock extends Block {

@@ -34,7 +34,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
-import org.obsidianbox.magma.Game;
+
 import org.obsidianbox.magma.addon.Addon;
 
 public abstract class BlockRenderer implements ISimpleBlockRenderingHandler {

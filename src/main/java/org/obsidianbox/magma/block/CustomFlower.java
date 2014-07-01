@@ -112,5 +112,4 @@ public class CustomFlower extends BlockFlower {
         result = 31 * result + identifier.hashCode();
         return result;
     }
-
 }

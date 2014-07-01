@@ -27,7 +27,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import org.obsidianbox.magma.Game;
+
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -40,7 +40,7 @@ public class CustomPickaxe extends ItemPickaxe {
         this.addon = addon;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier()  + ":" + "pickaxes/" + identifier);
+        setTextureName(addon.getDescription().getIdentifier() + ":pickaxes/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());

@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.flowpowered.math.vector.Vector3f;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -38,7 +37,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import org.obsidianbox.magma.Game;
+
+import com.flowpowered.math.vector.Vector3f;
+
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -53,7 +54,7 @@ public class CustomCrops extends BlockCrops {
         this.addon = addon;
         this.identifier = identifier;
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier()  + ":" + "crops/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":crops/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         setTickRandomly(tickRandomly);
         setBlockBounds(minBounds.getX(), minBounds.getY(), minBounds.getZ(), maxBounds.getX(), maxBounds.getY(), maxBounds.getZ());

@@ -23,6 +23,8 @@
  */
 package org.obsidianbox.magma.block;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,11 +36,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
-
-import java.util.List;
 
 public class CustomSlab extends BlockSlab {
     private final Addon addon;
@@ -56,7 +57,7 @@ public class CustomSlab extends BlockSlab {
         this.identifier = identifier;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier()  + ":" + "slabs/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":slabs/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
 
         if (!isDoubleSlab) {
