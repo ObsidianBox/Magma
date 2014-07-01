@@ -40,7 +40,6 @@ In order to build Magma you simply need to run the `gradle` command.
 Are you a talented programmer looking to contribute some code? We'd love the help!
 * Open a pull request with your changes, following our [guidelines and coding standards](http://wiki.obsidianbox.org/Contributing).
 * Please follow the above guidelines and requirements for your pull request(s) to be accepted.
-* For help setting up the project, keep reading!  
 
 Love the project? Feel free to [donate] to help continue development! Magma is open-source and powered by community members, like yourself. Without you, we wouldn't be here today!
 
