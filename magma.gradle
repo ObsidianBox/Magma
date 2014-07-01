@@ -34,18 +34,3 @@ targetCompatibility = '1.7'
 minecraft {
     version = "1.7.10-10.13.0.1152"
 }
-
-// Project repositories
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        name = 'sonatype-nexus-public'
-        url = 'https://oss.sonatype.org/content/repositories/public/'
-    }
-}
-
-// Project dependencies
-dependencies {
-    compile 'org.obsidianbox:magma:1.0.0-SNAPSHOT'
-}
