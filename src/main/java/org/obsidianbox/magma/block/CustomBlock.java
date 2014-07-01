@@ -24,6 +24,8 @@
 package org.obsidianbox.magma.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 
@@ -56,7 +58,7 @@ public class CustomBlock extends Block {
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
 
         // TODO IF RenderingType.OBJ, get block renderer and add to it
-        if (type == RenderingType.OBJ) {
+        if (addon.getGame().getSide().isClient() && type == RenderingType.OBJ) {
             BlockRenderer blockRenderer = addon.getGame().getBlockRenderer();
             blockRenderer.put(addon, identifier, this);
         }
