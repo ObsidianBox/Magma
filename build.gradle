@@ -28,6 +28,9 @@ ext.buildNumber = project.hasProperty("buildNumber") ? buildNumber : '0'
 ext.ciSystem = project.hasProperty("ciSystem") ? ciSystem : 'unknown'
 ext.commit = project.hasProperty("commit") ? commit : 'unknown'
 
+// Exclude reobfuscation task
+gradle.startParameter.excludedTaskNames += "reobf"
+
 // Gradle repositories and dependencies
 buildscript {
     repositories {
@@ -59,6 +62,12 @@ dependencies {
     compile 'junit:junit:4.11'
     compile 'org.spout:caustic-lwjgl:1.0.0-SNAPSHOT'
     testCompile 'junit:junit:4.11'
+}
+
+// Create a deobfuscated jar
+task devJar(type: Jar) {
+    classifier = 'dev'
+    from sourceSets.main.output
 }
 
 // Filter, process, and include resources
@@ -115,7 +124,7 @@ uploadArchives {
 
         // Set all artifacts
         artifacts {
-            archives jar, javadocJar, sourcesJar
+            archives jar, javadocJar, sourcesJar, devJar
         }
 
         // Tasks and variables based on if release or snapshot
