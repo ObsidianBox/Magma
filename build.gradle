@@ -64,12 +64,6 @@ dependencies {
     testCompile 'junit:junit:4.11'
 }
 
-// Create a deobfuscated jar
-task devJar(type: Jar) {
-    classifier = 'dev'
-    from sourceSets.main.output
-}
-
 // Filter, process, and include resources
 processResources {
     // Include in final JAR
@@ -124,7 +118,7 @@ uploadArchives {
 
         // Set all artifacts
         artifacts {
-            archives jar, javadocJar, sourcesJar, devJar
+            archives jar, javadocJar, sourcesJar
         }
 
         // Tasks and variables based on if release or snapshot
