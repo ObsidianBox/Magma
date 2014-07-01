@@ -10,7 +10,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 // Basic project information
-group = 'org.obsidianbox.magma'
+group = 'org.obsidianbox'
 archivesBaseName = 'magma'
 version = '1.0.0-SNAPSHOT'
 
