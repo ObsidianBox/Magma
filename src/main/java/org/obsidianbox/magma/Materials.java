@@ -39,6 +39,7 @@ public class Materials {
     public static final CustomLadderMaterial CUSTOM_LADDER = new CustomLadderMaterial();
     public static final CustomFluidMaterial CUSTOM_FLUID = new CustomFluidMaterial();
     public static final CustomPressurePlateMaterial CUSTOM_PRESSURE_PLATE = new CustomPressurePlateMaterial();
+    public static final CustomTrapDoorMaterial CUSTOM_TRAP_DOOR = new CustomTrapDoorMaterial();
 
     public static class CustomBlockMaterial extends Material {
         public CustomBlockMaterial() {
@@ -108,6 +109,12 @@ public class Materials {
 
     public static class CustomPressurePlateMaterial extends Material {
         public CustomPressurePlateMaterial() {
+            super(MapColor.clayColor);
+        }
+    }
+
+    public static class CustomTrapDoorMaterial extends Material {
+        public CustomTrapDoorMaterial() {
             super(MapColor.clayColor);
         }
     }
