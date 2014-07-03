@@ -29,6 +29,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockFence;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -36,7 +37,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -45,8 +45,8 @@ public class CustomFence extends BlockFence {
     private final String identifier;
     private IIcon bottomIcon, sideIcon, topIcon;
 
-    public CustomFence(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        super("", Materials.CUSTOM_FENCE);
+    public CustomFence(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        super("", material);
         this.addon = addon;
         this.identifier = identifier;
 

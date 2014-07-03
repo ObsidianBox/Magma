@@ -28,6 +28,7 @@ import java.util.Random;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
@@ -40,7 +41,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -51,11 +51,11 @@ public class CustomDoor extends BlockDoor {
     private CustomDoorItem associatedItem;
     private IIcon bottomFlippedIcon, bottomIcon, topFlippedIcon, topIcon;
 
-    public CustomDoor(Addon addon, String identifier, String displayName, boolean isPoweredOnly, boolean showInCreativeTab) {
-        super(Materials.CUSTOM_DOOR);
+    public CustomDoor(Addon addon, String identifier, String displayName, Material material, boolean isPoweredOnly, boolean showInCreativeTab) {
+        super(material);
         this.addon = addon;
         this.identifier = identifier;
-        this.associatedItem = new CustomDoorItem(addon, identifier, displayName, this, showInCreativeTab);
+        this.associatedItem = new CustomDoorItem(addon, identifier, displayName, material, this, showInCreativeTab);
         this.isPoweredOnly = isPoweredOnly;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
@@ -178,8 +178,8 @@ public class CustomDoor extends BlockDoor {
         private final String identifier;
         private Block associatedBlock;
 
-        private CustomDoorItem(Addon addon, String identifier, String displayName, CustomDoor associatedBlock, boolean showInCreativeTab) {
-            super(Materials.CUSTOM_DOOR);
+        private CustomDoorItem(Addon addon, String identifier, String displayName, Material material, CustomDoor associatedBlock, boolean showInCreativeTab) {
+            super(material);
             this.addon = addon;
             this.identifier = identifier;
             this.associatedBlock = associatedBlock;

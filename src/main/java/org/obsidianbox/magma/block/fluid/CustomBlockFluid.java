@@ -21,13 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.block;
+package org.obsidianbox.magma.block.fluid;
 
 import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -38,8 +39,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
+import org.obsidianbox.magma.block.fluid.CustomFluid;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomBlockFluid extends BlockFluidClassic {
@@ -47,16 +48,16 @@ public class CustomBlockFluid extends BlockFluidClassic {
     private final String identifier;
     private IIcon still, flowing;
 
-    public CustomBlockFluid(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        this(addon, identifier, displayName, showInCreativeTab, new CustomFluid(identifier));
+    public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        this(addon, identifier, displayName, material, showInCreativeTab, new CustomFluid(identifier));
     }
 
-    public CustomBlockFluid(Addon addon, String identifier, String displayName, boolean showInCreativeTab, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
-        this(addon, identifier, displayName, showInCreativeTab, new CustomFluid(identifier, luminosity, density, temperature, viscosity, isGaseous));
+    public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
+        this(addon, identifier, displayName, material, showInCreativeTab, new CustomFluid(identifier, luminosity, density, temperature, viscosity, isGaseous));
     }
 
-    public CustomBlockFluid(Addon addon, String identifier, String displayName, boolean showInCreativeTab, CustomFluid fluid) {
-        super(fluid, Materials.CUSTOM_FLUID);
+    public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, CustomFluid fluid) {
+        super(fluid, material);
         this.addon = addon;
         this.identifier = identifier;
 
@@ -80,6 +81,7 @@ public class CustomBlockFluid extends BlockFluidClassic {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
@@ -107,18 +109,12 @@ public class CustomBlockFluid extends BlockFluidClassic {
 
     @Override
     public boolean canDisplace(IBlockAccess world, int x, int y, int z) {
-        if (world.getBlock(x, y, z).getMaterial().isLiquid()) {
-            return false;
-        }
-        return super.canDisplace(world, x, y, z);
+        return !world.getBlock(x, y, z).getMaterial().isLiquid() && super.canDisplace(world, x, y, z);
     }
 
     @Override
     public boolean displaceIfPossible(World world, int x, int y, int z) {
-        if (world.getBlock(x, y, z).getMaterial().isLiquid()) {
-            return false;
-        }
-        return super.displaceIfPossible(world, x, y, z);
+        return !world.getBlock(x, y, z).getMaterial().isLiquid() && super.displaceIfPossible(world, x, y, z);
     }
 }
 

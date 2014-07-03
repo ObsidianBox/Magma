@@ -29,6 +29,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockPressurePlate;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -36,7 +37,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -45,8 +45,8 @@ public class CustomPressurePlate extends BlockPressurePlate {
     private final String identifier;
     private IIcon bottomIcon, topIcon, sideIcon;
 
-    public CustomPressurePlate(Addon addon, String identifier, String displayName, boolean showInCreativeTab, Sensitivity sensitivity) {
-        super("", Materials.CUSTOM_PRESSURE_PLATE, sensitivity);
+    public CustomPressurePlate(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, Sensitivity sensitivity) {
+        super("", material, sensitivity);
         this.addon = addon;
         this.identifier = identifier;
 

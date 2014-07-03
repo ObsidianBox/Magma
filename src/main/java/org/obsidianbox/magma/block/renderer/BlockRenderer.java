@@ -23,28 +23,21 @@
  */
 package org.obsidianbox.magma.block.renderer;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
+import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
 
+@SideOnly(Side.CLIENT)
 public abstract class BlockRenderer implements ISimpleBlockRenderingHandler {
-    protected final Set<Block> registered = new HashSet<>();
-    protected final Map<Block, IModelCustom> models = new HashMap<>();
-    // ID
     protected final int renderID;
+    protected final Addon addon;
 
-    public BlockRenderer() {
-        renderID = RenderingRegistry.getNextAvailableRenderId();
+    public BlockRenderer(Addon addon, int renderID) {
+        this.addon = addon;
+        this.renderID = renderID;
     }
 
     @Override
@@ -52,11 +45,7 @@ public abstract class BlockRenderer implements ISimpleBlockRenderingHandler {
         return renderID;
     }
 
-    /**
-     * TODO: Add interface to tie all custom content together
-     */
-    public void put(Addon addon, String identifier, Block block) {
-        registered.add(block);
-        models.put(block, AdvancedModelLoader.loadModel(new ResourceLocation(addon.getDescription().getIdentifier() + ":models/blocks/" + identifier + ".obj")));
+    public final Addon getAddon() {
+        return addon;
     }
 }

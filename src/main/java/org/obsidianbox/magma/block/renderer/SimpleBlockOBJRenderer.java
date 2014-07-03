@@ -23,66 +23,50 @@
  */
 package org.obsidianbox.magma.block.renderer;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.*;
 
 import org.obsidianbox.magma.addon.Addon;
 
-public class SimpleOBJRenderer extends BlockRenderer {
-    protected final Map<Block, ResourceLocation> textures = new HashMap<>();
+@SideOnly(Side.CLIENT)
+public class SimpleBlockOBJRenderer extends BlockRenderer {
+    private final IModelCustom model;
+    private static final Tessellator TESSELLATOR = Tessellator.instance;
 
-    /**
-     * TODO: Support this
-     */
+    public SimpleBlockOBJRenderer(Addon addon, int renderID, ResourceLocation modelLocation) {
+        super(addon, renderID);
+        model = AdvancedModelLoader.loadModel(modelLocation);
+    }
+
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        //  System.out.println("Got inventory block request");
-        Minecraft.getMinecraft().renderEngine.bindTexture(textures.get(block));
         GL11.glPushMatrix();
-        models.get(block).renderAll();
+        model.renderAll();
         GL11.glPopMatrix();
-        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
     }
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        if (registered.contains(block)) {
-            Tessellator tessellator = Tessellator.instance;
-            tessellator.draw();
-            Minecraft.getMinecraft().renderEngine.bindTexture(textures.get(block));
-            GL11.glPushMatrix();
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glTranslated(x, y, z);
-            models.get(block).renderAll();
-            GL11.glPopMatrix();
-            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-            Tessellator.instance.startDrawingQuads();
-        } else {
+        TESSELLATOR.addTranslation(x, y, z);
+        if (block.getIcon(0, 0) == null) {
+            addon.getGame().getLogger().error("Addon [" + addon.getDescription().getIdentifier() + "] is rendering a block with a null icon!");
         }
-        // TODO Investigate meaning of return value
-        return true;
-    }
-
-    /**
-     * TODO: Support this
-     */
-    @Override
-    public final boolean shouldRender3DInInventory(int modelId) {
+        ((WavefrontObject) model).tessellateAll(TESSELLATOR);
+        TESSELLATOR.addTranslation(-x, -y, -z);
         return true;
     }
 
     @Override
-    public final void put(Addon addon, String identifier, Block block) {
-        super.put(addon, identifier, block);
-        textures.put(block, new ResourceLocation(addon.getDescription().getIdentifier() + ":textures/blocks/" + identifier + ".png"));
+    public boolean shouldRender3DInInventory(int modelId) {
+        return true;
     }
 }

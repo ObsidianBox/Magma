@@ -29,6 +29,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -37,8 +38,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
+import org.obsidianbox.magma.item.CustomItemSlab;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomSlab extends BlockSlab {
@@ -47,12 +48,12 @@ public class CustomSlab extends BlockSlab {
     private CustomSlab singleSlab, doubleSlab;
     private IIcon bottomIcon, sideIcon, topIcon;
 
-    public CustomSlab(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        this(addon, identifier, displayName, showInCreativeTab, false);
+    public CustomSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        this(addon, identifier, displayName, material, showInCreativeTab, false);
     }
 
-    private CustomSlab(Addon addon, String identifier, String displayName, boolean showInCreativeTab, boolean isDoubleSlab) {
-        super(isDoubleSlab, Materials.CUSTOM_SLAB);
+    private CustomSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, boolean isDoubleSlab) {
+        super(isDoubleSlab, material);
         this.addon = addon;
         this.identifier = identifier;
 
@@ -67,7 +68,7 @@ public class CustomSlab extends BlockSlab {
             }
 
             singleSlab = this;
-            doubleSlab = new CustomSlab(addon, identifier, displayName, showInCreativeTab, true);
+            doubleSlab = new CustomSlab(addon, identifier, displayName, material, showInCreativeTab, true);
 
             register();
         } else {
@@ -79,7 +80,7 @@ public class CustomSlab extends BlockSlab {
         // Register our slabs, doubleSlab will be registered with '_double' appended at the end.
         GameRegistry.registerBlock(singleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier);
         GameRegistry.registerBlock(doubleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier + "_double");
-        GameRegistry.registerItem(new CustomSlabItem(singleSlab, singleSlab, doubleSlab), addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerItem(new CustomItemSlab(singleSlab, singleSlab, doubleSlab), addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override

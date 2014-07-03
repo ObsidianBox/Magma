@@ -21,9 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.block;
+package org.obsidianbox.magma.item;
 
-public enum RenderingType {
-    DEFAULT,
-    OBJ;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemSlab;
+
+import org.obsidianbox.magma.block.CustomSlab;
+
+public class CustomItemSlab extends ItemSlab {
+    public CustomItemSlab(Block block, CustomSlab singleSlab, CustomSlab doubleSlab) {
+        super(singleSlab, singleSlab, doubleSlab, false);
+    }
 }

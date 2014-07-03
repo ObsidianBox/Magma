@@ -25,9 +25,9 @@ package org.obsidianbox.magma.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -35,8 +35,8 @@ public class CustomMovingBlock extends BlockFalling {
     private final Addon addon;
     private final String identifier;
 
-    public CustomMovingBlock(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        super(Materials.CUSTOM_MOVING);
+    public CustomMovingBlock(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        super(material);
         this.addon = addon;
         this.identifier = identifier;
 

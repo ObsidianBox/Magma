@@ -24,31 +24,23 @@
 package org.obsidianbox.magma.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 
-import org.obsidianbox.magma.Materials;
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.block.renderer.BlockRenderer;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomBlock extends Block {
+    public static final int DEFAULT_MOJANG_RENDERING = 0;
     private final Addon addon;
     private final String identifier;
-    private final RenderingType type;
+    private int renderType;
 
-    public CustomBlock(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        this(addon, identifier, displayName, showInCreativeTab, RenderingType.DEFAULT);
-    }
-
-    public CustomBlock(Addon addon, String identifier, String displayName, boolean showInCreativeTab, RenderingType type) {
-        super(Materials.CUSTOM_BLOCK);
+    public CustomBlock(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        super(material);
         this.addon = addon;
         this.identifier = identifier;
-        this.type = type;
-
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
         setBlockTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
@@ -56,46 +48,6 @@ public class CustomBlock extends Block {
             setCreativeTab(addon.getGame().getTabs());
         }
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
-
-        // TODO IF RenderingType.OBJ, get block renderer and add to it
-        if (addon.getGame().getSide().isClient() && type == RenderingType.OBJ) {
-            BlockRenderer blockRenderer = addon.getGame().getBlockRenderer();
-            blockRenderer.put(addon, identifier, this);
-        }
-    }
-
-    @Override
-    public int getRenderType() {
-        if (type != RenderingType.DEFAULT) {
-            return addon.getGame().getBlockRenderer().getRenderId();
-        }
-        return super.getRenderType();
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
-        if (type != RenderingType.DEFAULT) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isOpaqueCube() {
-        if (type != RenderingType.DEFAULT) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public final String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
     public final Addon getAddon() {
@@ -104,6 +56,39 @@ public class CustomBlock extends Block {
 
     public final String getIdentifier() {
         return identifier;
+    }
+
+    public void setRenderType(int renderType) {
+        if (renderType < 1) {
+            this.renderType = DEFAULT_MOJANG_RENDERING;
+        } else {
+            this.renderType = renderType;
+        }
+    }
+
+    @Override
+    public int getRenderType() {
+        return renderType;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return renderType == DEFAULT_MOJANG_RENDERING;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return renderType == DEFAULT_MOJANG_RENDERING;
+    }
+
+    @Override
+    public String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
     @Override

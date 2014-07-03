@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 import org.obsidianbox.magma.Game;
 
 /**
- * An addon is like a Mod or a Plugin (from Bukkit). It is the bridge between external code and Obsidian's framework. <p> The power of addons lie in the ability to use Game API and Forge without
+ * An addon is like a Mod or a Plugin (from Bukkit). It is the bridge between external code and Obsidian's framework. <p> The power of addons lie in the ability to use Magma and Forge without
  * needing to make a new Mod.
  */
 public abstract class Addon {
