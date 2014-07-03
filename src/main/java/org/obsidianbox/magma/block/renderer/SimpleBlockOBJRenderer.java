@@ -37,6 +37,9 @@ import org.lwjgl.opengl.*;
 
 import org.obsidianbox.magma.addon.Addon;
 
+/**
+ * A simple renderer that renders a {@link net.minecraftforge.client.model.obj.WavefrontObject} (.obj) and texture
+ */
 @SideOnly(Side.CLIENT)
 public class SimpleBlockOBJRenderer extends BlockRenderer {
     private final IModelCustom model;
@@ -47,6 +50,15 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
         model = AdvancedModelLoader.loadModel(modelLocation);
     }
 
+    /**
+     * Performs complex rendering on an inventory {@link net.minecraft.block.Block}
+     *
+     * Only fires if {@link org.obsidianbox.magma.block.renderer.SimpleBlockOBJRenderer#shouldRender3DInInventory(int)} returns true
+     * @param block Block being rendered
+     * @param metadata Metadata of the block
+     * @param modelId
+     * @param renderer The block renderer of Minecraft
+     */
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
         GL11.glPushMatrix();
@@ -54,6 +66,18 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
         GL11.glPopMatrix();
     }
 
+    /**
+     * Performs complex rendering of a {@link net.minecraft.block.Block} in the world.
+     *
+     * @param world {@link net.minecraft.world.World} the block is in
+     * @param x The x-coordinate
+     * @param y The y-coordinate
+     * @param z The z-coordinate
+     * @param block The block being rendered
+     * @param modelId
+     * @param renderer The block renderer of Minecraft
+     * @return True to perform rendering, false to skip this pass
+     */
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         TESSELLATOR.addTranslation(x, y, z);
@@ -65,6 +89,11 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
         return true;
     }
 
+    /**
+     * Returns if this renderer should perform complex rendering on the {@link net.minecraft.block.Block} in the inventory
+     * @param modelId
+     * @return True to perform complex rendering, false if not
+     */
     @Override
     public boolean shouldRender3DInInventory(int modelId) {
         return true;
