@@ -36,18 +36,38 @@ import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.*;
 
 import org.obsidianbox.magma.addon.Addon;
+import org.obsidianbox.magma.block.CustomBlock;
 
 /**
  * A simple renderer that renders a {@link net.minecraftforge.client.model.obj.WavefrontObject} (.obj) and texture
  */
 @SideOnly(Side.CLIENT)
 public class SimpleBlockOBJRenderer extends BlockRenderer {
-    private final IModelCustom model;
+    private final WavefrontObject model;
     private static final Tessellator TESSELLATOR = Tessellator.instance;
 
     public SimpleBlockOBJRenderer(Addon addon, int renderID, ResourceLocation modelLocation) {
         super(addon, renderID);
-        model = AdvancedModelLoader.loadModel(modelLocation);
+        final IModelCustom temp = AdvancedModelLoader.loadModel(modelLocation);
+        if (!(temp instanceof WavefrontObject)) {
+            throw new IllegalArgumentException("SimpleBlockOBJRenderer is only for WaveFrontObjects (.obj)!");
+        }
+        model = (WavefrontObject) temp;
+    }
+
+    /**
+     * Creates a renderer using properties from a {@link org.obsidianbox.magma.block.CustomBlock}
+     *
+     * This will also set the render type for that block
+     */
+    public SimpleBlockOBJRenderer(Addon addon, int renderID, CustomBlock block) {
+        super(addon, renderID);
+        final IModelCustom temp = AdvancedModelLoader.loadModel(new ResourceLocation(addon.getDescription().getIdentifier(), "models/blocks/" + block.getIdentifier() + ".png"));
+        if (!(temp instanceof WavefrontObject)) {
+            throw new IllegalArgumentException("SimpleBlockOBJRenderer is only for WaveFrontObjects (.obj)!");
+        }
+        model = (WavefrontObject) temp;
+        block.setRenderType(renderID);
     }
 
     /**
@@ -84,7 +104,7 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
         if (block.getIcon(0, 0) == null) {
             addon.getGame().getLogger().error("Addon [" + addon.getDescription().getIdentifier() + "] is rendering a block with a null icon!");
         }
-        ((WavefrontObject) model).tessellateAll(TESSELLATOR);
+        model.tessellateAll(TESSELLATOR);
         TESSELLATOR.addTranslation(-x, -y, -z);
         return true;
     }
@@ -97,5 +117,9 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
     @Override
     public boolean shouldRender3DInInventory(int modelId) {
         return true;
+    }
+
+    public WavefrontObject getModel() {
+        return model;
     }
 }
