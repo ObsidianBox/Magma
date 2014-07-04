@@ -34,7 +34,6 @@ import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomTrapDoor extends BlockTrapDoor {
-    public static final int DEFAULT_MOJANG_RENDERING = 0;
     private final Addon addon;
     private final String identifier;
     private IIcon topIcon, bottomIcon, sideIcon;
@@ -69,7 +68,7 @@ public class CustomTrapDoor extends BlockTrapDoor {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        switch(side) {
+        switch (side) {
             case 0:
                 return bottomIcon;
             case 1:
