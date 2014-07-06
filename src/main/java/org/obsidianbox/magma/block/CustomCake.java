@@ -33,7 +33,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.item.CustomBlockItem;
+import org.obsidianbox.magma.item.CustomItemBlock;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomCake extends BlockCake {
@@ -51,7 +51,7 @@ public class CustomCake extends BlockCake {
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
 
-        cakeItem = new CustomBlockItem(addon, identifier + "_item", displayName, true, this);
+        cakeItem = new CustomItemBlock(addon, identifier + "_item", displayName, true, this);
     }
 
     public final Addon getAddon() {

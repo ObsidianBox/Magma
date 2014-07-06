@@ -26,17 +26,17 @@ package org.obsidianbox.magma.item;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemReed;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomBlockItem extends ItemReed {
+public class CustomItemBlock extends ItemBlock {
     private final Addon addon;
     private final String identifier;
 
-    public CustomBlockItem(Addon addon, String identifier, String displayName, boolean showInCreativeTab, Block block) {
+    public CustomItemBlock(Addon addon, String identifier, String displayName, boolean showInCreativeTab, Block block) {
         super(block);
         this.addon = addon;
         this.identifier = identifier;
