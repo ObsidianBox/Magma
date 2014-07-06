@@ -9,7 +9,7 @@ Magma is an API that extends Minecraft Forge to easier deliver content through a
 
 ## Prerequisites
 * [Java] 7
-* [Gradle] 1.12
+* [Gradle] 1.12+
 
 ## Cloning
 If you are using Git, use this command to clone the project: `git clone git@github.com:ObsidianBox/Magma.git`
@@ -18,16 +18,16 @@ If you are using Git, use this command to clone the project: `git clone git@gith
 __Note:__ If you do not have [Gradle] installed then use ./gradlew for Unix systems or Git Bash and gradlew.bat for Windows systems in place of any 'gradle' command.
 
 __For [Eclipse]__  
-  1. Run `gradle cleanCache --refresh-dependencies` to pull in dependencies cleanly.  
-  2. Run `gradle setupDecompWorkspace`  
+  1. Run `gradle clean cleanCache`  
+  2. Run `gradle setupDecompWorkspace --refresh-dependencies`  
   3. Make sure you have the Gradle plugin installed (Help > Eclipse Marketplace > Gradle Integration Plugin)  
   4. Import Magma as a Gradle project (File > Import)
   5. Select the root folder for Magma and click **Build Model**
   6. Check Magma when it finishes building and click **Finish**
 
 __For [IntelliJ]__  
-  1. Run `gradle cleanCache --refresh-dependencies` to pull in dependencies cleanly.  
-  2. Run `gradle setupDecompWorkspace`  
+  1. Run `gradle clean cleanCache` to pull in dependencies cleanly.  
+  2. Run `gradle setupDecompWorkspace --refresh-dependencies`  
   3. Make sure you have the Gradle plugin enabled (File > Settings > Plugins).  
   4. Click File > Import Module and select the **build.gradle** file for Magma.
 
