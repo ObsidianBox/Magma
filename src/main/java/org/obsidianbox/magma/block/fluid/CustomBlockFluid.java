@@ -40,13 +40,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.block.fluid.CustomFluid;
 import org.obsidianbox.magma.lang.Languages;
 
 public class CustomBlockFluid extends BlockFluidClassic {
     private final Addon addon;
     private final String identifier;
-    private IIcon still, flowing;
 
     public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
         this(addon, identifier, displayName, material, showInCreativeTab, new CustomFluid(identifier));
@@ -81,7 +79,7 @@ public class CustomBlockFluid extends BlockFluidClassic {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings ("unchecked")
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
@@ -89,8 +87,8 @@ public class CustomBlockFluid extends BlockFluidClassic {
     @Override
     @SideOnly (Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        still = iconRegister.registerIcon(getTextureName());
-        flowing = iconRegister.registerIcon(getTextureName() + "_flow");
+        IIcon still = iconRegister.registerIcon(getTextureName());
+        IIcon flowing = iconRegister.registerIcon(getTextureName() + "_flow");
         getFluid().setIcons(still, flowing);
     }
 
@@ -99,11 +97,11 @@ public class CustomBlockFluid extends BlockFluidClassic {
     public IIcon getIcon(int side, int meta) {
         switch (side) {
             case 0:
-                return still;
+                return getFluid().getStillIcon();
             case 1:
-                return still;
+                return getFluid().getStillIcon();
             default:
-                return flowing;
+                return getFluid().getFlowingIcon();
         }
     }
 
