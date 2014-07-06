@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.obsidianbox.magma.addon.Addon;
 
-public interface LanguageRegistry {
+public interface LanguageManager {
     /**
      * Puts a new language entry into the registry. <p> This must be done during the INITIALIZE phase of Addon management or an exception will be thrown.
      *

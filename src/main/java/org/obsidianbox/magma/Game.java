@@ -29,8 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.obsidianbox.magma.addon.AddonManager;
-import org.obsidianbox.magma.block.renderer.BlockRenderer;
-import org.obsidianbox.magma.lang.LanguageRegistry;
+import org.obsidianbox.magma.lang.LanguageManager;
 import org.obsidianbox.magma.message.MessagePipeline;
 import org.obsidianbox.magma.renderer.Renderer;
 import org.obsidianbox.magma.resource.FileSystem;
@@ -41,7 +40,7 @@ public final class Game {
     private final Side side;
     private AddonManager addonManager;
     private FileSystem fileSystem;
-    private LanguageRegistry languages;
+    private LanguageManager languages;
     private MessagePipeline messagePipeline;
     private Renderer guiRenderer;
     private CreativeTabs tabs;
@@ -86,11 +85,11 @@ public final class Game {
         this.fileSystem = fileSystem;
     }
 
-    public LanguageRegistry getLanguages() {
+    public LanguageManager getLanguages() {
         return languages;
     }
 
-    public void setLanguages(LanguageRegistry languages) {
+    public void setLanguages(LanguageManager languages) {
         if (this.languages != null) {
             throw new IllegalStateException("Setting the language registry again is not allowed!");
         }

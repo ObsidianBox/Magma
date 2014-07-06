@@ -30,7 +30,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.obsidianbox.magma.addon.Addon;
 
 public interface MessagePipeline {
-    public void register(Addon addon, Class<? extends Message> clazz);
+    /**
+     * Registers a {@link org.obsidianbox.magma.message.Message} with its {@link org.obsidianbox.magma.message.MessageHandler}
+     * for the pipeline.
+     *
+     * @param addon The {@link org.obsidianbox.magma.addon.Addon} registering the message
+     * @param message The message being registered
+     * @param handler The handler of the message. If null, handling is ignored
+     * @param <T> Enforces Message implementations
+     * @param <U> Enforces MessageHandler implementations
+     */
+    public <T extends Message, U extends MessageHandler<T>> void register(Addon addon, Class<T> message, Class<U> handler);
 
     /**
      * Sends a {@link Message} to all {@link net.minecraft.entity.player.EntityPlayer}s on the server.

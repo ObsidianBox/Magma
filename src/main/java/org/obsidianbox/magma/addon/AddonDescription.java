@@ -60,11 +60,6 @@ public final class AddonDescription {
 
     public boolean isValidMode(Side side) {
         switch (mode) {
-            case CLIENT:
-                if (side.isClient()) {
-                    return true;
-                }
-                break;
             case SERVER:
                 if (side.isServer()) {
                     return true;

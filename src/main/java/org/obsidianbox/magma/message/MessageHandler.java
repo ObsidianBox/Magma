@@ -21,9 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.addon;
+package org.obsidianbox.magma.message;
 
-public enum AddonMode {
-    SERVER,
-    BOTH
+import net.minecraft.entity.player.EntityPlayer;
+import org.obsidianbox.magma.Game;
+
+public interface MessageHandler <T extends Message> {
+    /**
+     * Called when a {@link org.obsidianbox.magma.message.Message} is handled.
+     * @param game The game object
+     * @param player The player this message targeted
+     * @param message The message being handled
+     * @return Message to sent back to the opposite {@link cpw.mods.fml.relauncher.Side}
+     */
+    public Message handle(Game game, EntityPlayer player, T message);
 }

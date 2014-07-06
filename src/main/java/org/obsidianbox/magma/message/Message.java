@@ -24,11 +24,10 @@
 package org.obsidianbox.magma.message;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
 import org.obsidianbox.magma.Game;
 
 /**
- * Represents a simple message that can be sent over the pipeline
+ * Represents a simple message that can be sent over the {@link org.obsidianbox.magma.message.MessagePipeline}.
  *
  * Note: All child classes MUST have one empty constructor!
  */
@@ -48,14 +47,4 @@ public interface Message {
      * @param buf Where to encode the data into
      */
     public void encode(Game game, ByteBuf buf) throws Exception;
-
-    /**
-     * Called after decode is successful
-     *
-     * {@link #decode(org.obsidianbox.magma.Game, io.netty.buffer.ByteBuf)}
-     *
-     * @param game The {@link org.obsidianbox.magma.Game} game object
-     * @param player The target {@link net.minecraft.entity.player.EntityPlayer} of this message
-     */
-    public void handle(Game game, EntityPlayer player);
 }
