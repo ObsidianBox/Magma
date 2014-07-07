@@ -62,7 +62,7 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
      */
     public SimpleBlockOBJRenderer(Addon addon, int renderID, CustomBlock block) {
         super(addon, renderID);
-        final IModelCustom temp = AdvancedModelLoader.loadModel(new ResourceLocation(addon.getDescription().getIdentifier(), "models/blocks/" + block.getIdentifier() + ".png"));
+        final IModelCustom temp = AdvancedModelLoader.loadModel(new ResourceLocation(addon.getDescription().getIdentifier(), "models/blocks/" + block.getIdentifier() + ".obj"));
         if (!(temp instanceof WavefrontObject)) {
             throw new IllegalArgumentException("SimpleBlockOBJRenderer is only for WaveFrontObjects (.obj)!");
         }
