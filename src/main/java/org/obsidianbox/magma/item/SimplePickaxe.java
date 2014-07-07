@@ -48,6 +48,14 @@ public class SimplePickaxe extends ItemPickaxe {
         GameRegistry.registerItem(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
     @Override
     public String getUnlocalizedName() {
         return addon.getDescription().getIdentifier() + ".item." + identifier;
@@ -56,14 +64,6 @@ public class SimplePickaxe extends ItemPickaxe {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    public final Addon getAddon() {
-        return addon;
-    }
-
-    public final String getIdentifier() {
-        return identifier;
     }
 
     @Override

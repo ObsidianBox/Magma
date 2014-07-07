@@ -48,11 +48,7 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     private IIcon still, flowing;
 
     public SimpleBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        this(addon, identifier, displayName, material, showInCreativeTab, new SimpleFluid(identifier));
-    }
-
-    public SimpleBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
-        this(addon, identifier, displayName, material, showInCreativeTab, new SimpleFluid(identifier, luminosity, density, temperature, viscosity, isGaseous));
+        this(addon, identifier, displayName, material, showInCreativeTab, new SimpleFluid(addon, identifier));
     }
 
     public SimpleBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, SimpleFluid fluid) {
@@ -70,23 +66,13 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     }
 
     @Override
-    public final String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
 
     @Override
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         still = iconRegister.registerIcon(getTextureName());
         flowing = iconRegister.registerIcon(getTextureName() + "_flow");
@@ -94,7 +80,7 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     }
 
     @Override
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         switch (side) {
             case 0:
@@ -114,6 +100,45 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     @Override
     public boolean displaceIfPossible(World world, int x, int y, int z) {
         return !world.getBlock(x, y, z).getMaterial().isLiquid() && super.displaceIfPossible(world, x, y, z);
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
+    public String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleBlockFluid)) {
+            return false;
+        }
+
+        final SimpleBlockFluid that = (SimpleBlockFluid) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }
 

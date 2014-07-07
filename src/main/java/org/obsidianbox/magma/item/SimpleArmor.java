@@ -66,16 +66,6 @@ public class SimpleArmor extends ItemArmor {
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".item." + identifier;
-    }
-
-    @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
         return Game.MOD_ID.toLowerCase() + ":textures/models/" + addon.getDescription().getIdentifier() + "/armor/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
     }
@@ -86,6 +76,16 @@ public class SimpleArmor extends ItemArmor {
 
     public final String getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".item." + identifier;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return I18n.format(getUnlocalizedName() + ".name");
     }
 
     @Override

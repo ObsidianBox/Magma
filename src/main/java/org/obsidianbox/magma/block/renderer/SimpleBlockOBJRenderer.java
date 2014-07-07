@@ -74,9 +74,9 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
      * Performs complex rendering on an inventory {@link net.minecraft.block.Block}
      *
      * Only fires if {@link org.obsidianbox.magma.block.renderer.SimpleBlockOBJRenderer#shouldRender3DInInventory(int)} returns true
+     *
      * @param block Block being rendered
      * @param metadata Metadata of the block
-     * @param modelId
      * @param renderer The block renderer of Minecraft
      */
     @Override
@@ -94,7 +94,6 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
      * @param y The y-coordinate
      * @param z The z-coordinate
      * @param block The block being rendered
-     * @param modelId
      * @param renderer The block renderer of Minecraft
      * @return True to perform rendering, false to skip this pass
      */
@@ -111,7 +110,7 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
 
     /**
      * Returns if this renderer should perform complex rendering on the {@link net.minecraft.block.Block} in the inventory
-     * @param modelId
+     *
      * @return True to perform complex rendering, false if not
      */
     @Override

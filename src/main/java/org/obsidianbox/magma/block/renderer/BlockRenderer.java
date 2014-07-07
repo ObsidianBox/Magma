@@ -27,7 +27,6 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
 
 @SideOnly(Side.CLIENT)

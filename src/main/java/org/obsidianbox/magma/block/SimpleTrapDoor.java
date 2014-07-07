@@ -51,14 +51,6 @@ public class SimpleTrapDoor extends BlockTrapDoor {
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
-    public final Addon getAddon() {
-        return addon;
-    }
-
-    public final String getIdentifier() {
-        return identifier;
-    }
-
     @Override
     public void registerBlockIcons(IIconRegister icon) {
         topIcon = icon.registerIcon(getTextureName() + "_top");
@@ -78,6 +70,14 @@ public class SimpleTrapDoor extends BlockTrapDoor {
         }
     }
 
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
     @Override
     public String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
@@ -86,5 +86,26 @@ public class SimpleTrapDoor extends BlockTrapDoor {
     @Override
     public String getUnlocalizedName() {
         return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleTrapDoor)) {
+            return false;
+        }
+
+        final SimpleTrapDoor that = (SimpleTrapDoor) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }

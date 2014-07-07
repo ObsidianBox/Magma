@@ -50,14 +50,6 @@ public class SimpleBlock extends Block {
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
-    public final Addon getAddon() {
-        return addon;
-    }
-
-    public final String getIdentifier() {
-        return identifier;
-    }
-
     public void setRenderType(int renderType) {
         if (renderType < 1) {
             this.renderType = DEFAULT_MOJANG_RENDERING;
@@ -79,6 +71,14 @@ public class SimpleBlock extends Block {
     @Override
     public boolean isOpaqueCube() {
         return renderType == DEFAULT_MOJANG_RENDERING;
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
     }
 
     @Override

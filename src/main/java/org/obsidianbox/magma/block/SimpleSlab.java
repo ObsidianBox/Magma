@@ -24,28 +24,31 @@
 package org.obsidianbox.magma.block;
 
 import java.util.List;
+import java.util.Random;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.item.SimpleItemSlab;
 import org.obsidianbox.magma.lang.Languages;
 
 public class SimpleSlab extends BlockSlab {
     private final Addon addon;
     private final String identifier;
-    private SimpleSlab singleSlab, doubleSlab;
+    private static SimpleSlab singleSlab;
+    private static SimpleDoubleSlab doubleSlab;
     private IIcon bottomIcon, sideIcon, topIcon;
 
     public SimpleSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
@@ -62,38 +65,20 @@ public class SimpleSlab extends BlockSlab {
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
 
         if (!isDoubleSlab) {
+            setLightOpacity(0);
 
             if (showInCreativeTab) {
                 setCreativeTab(addon.getGame().getTabs());
             }
 
             singleSlab = this;
-            doubleSlab = new SimpleSlab(addon, identifier, displayName, material, showInCreativeTab, true);
-
-            register();
-        } else {
-            doubleSlab = this;
+            doubleSlab = new SimpleDoubleSlab(this);
+            GameRegistry.registerBlock(this, SimpleItemSlab.class, addon.getDescription().getIdentifier() + "_" + identifier);
         }
     }
 
-    private void register() {
-        // Register our slabs, doubleSlab will be registered with '_double' appended at the end.
-        GameRegistry.registerBlock(singleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier);
-        GameRegistry.registerBlock(doubleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier + "_double");
-        GameRegistry.registerItem(new SimpleItemSlab(singleSlab, singleSlab, doubleSlab), addon.getDescription().getIdentifier() + "_" + identifier);
-    }
-
     @Override
-    public final String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
-    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
@@ -110,7 +95,7 @@ public class SimpleSlab extends BlockSlab {
         }
     }
 
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister icon) {
         bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
@@ -118,15 +103,19 @@ public class SimpleSlab extends BlockSlab {
         topIcon = icon.registerIcon(getTextureName() + "_top");
     }
 
-    @SideOnly (Side.CLIENT)
-    @Override
-    public Item getItem(World world, int x, int y, int z) {
-        return Item.getItemFromBlock(this);
-    }
-
     @Override
     public String func_150002_b(int var1) {
         return getUnlocalizedName();
+    }
+
+    @Override
+    public Item getItem(World world, int x, int y, int z) {
+        return Item.getItemFromBlock(singleSlab);
+    }
+
+    @Override
+    public Item getItemDropped(int val1, Random random, int val2) {
+        return Item.getItemFromBlock(singleSlab);
     }
 
     public SimpleSlab getDoubleBlock() {
@@ -139,5 +128,49 @@ public class SimpleSlab extends BlockSlab {
 
     public final String getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public final String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public final String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleSlab)) {
+            return false;
+        }
+
+        final SimpleSlab that = (SimpleSlab) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
+    }
+
+    protected static class SimpleDoubleSlab extends SimpleSlab {
+        public SimpleDoubleSlab(SimpleSlab singleSlab) {
+            super(singleSlab.getAddon(), singleSlab.getIdentifier() + "_double", singleSlab.getLocalizedName(), singleSlab.getMaterial(), false, true);
+            GameRegistry.registerBlock(this, SimpleItemSlab.class, singleSlab.getAddon().getDescription().getIdentifier() + "_" + singleSlab.getIdentifier() + "_double");
+        }
+    }
+
+    protected static class SimpleItemSlab extends ItemSlab {
+        public SimpleItemSlab(Block block) {
+            super(block, (SimpleSlab) block, doubleSlab, false);
+        }
     }
 }

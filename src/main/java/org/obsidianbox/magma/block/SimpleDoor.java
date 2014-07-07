@@ -47,7 +47,7 @@ import org.obsidianbox.magma.lang.Languages;
 public class SimpleDoor extends BlockDoor {
     private final Addon addon;
     private final String identifier;
-    private boolean isPoweredOnly;
+    private final boolean isPoweredOnly;
     private CustomDoorItem associatedItem;
     private IIcon bottomFlippedIcon, bottomIcon, topFlippedIcon, topIcon;
 
@@ -62,16 +62,6 @@ public class SimpleDoor extends BlockDoor {
         setBlockTextureName(addon.getDescription().getIdentifier() + ":doors/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier + "_block");
-    }
-
-    @Override
-    public final String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
     @Override
@@ -153,6 +143,16 @@ public class SimpleDoor extends BlockDoor {
     }
 
     @Override
+    public final String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public final String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -193,16 +193,6 @@ public class SimpleDoor extends BlockDoor {
         }
 
         @Override
-        public String getUnlocalizedName() {
-            return addon.getDescription().getIdentifier() + ".item." + identifier;
-        }
-
-        @Override
-        public String getItemStackDisplayName(ItemStack stack) {
-            return I18n.format(getUnlocalizedName() + ".name");
-        }
-
-        @Override
         public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int val1, float val2, float val3, float val4) {
             if (val1 != 1) {
                 return false;
@@ -229,6 +219,16 @@ public class SimpleDoor extends BlockDoor {
 
         public final String getIdentifier() {
             return identifier;
+        }
+
+        @Override
+        public String getUnlocalizedName() {
+            return addon.getDescription().getIdentifier() + ".item." + identifier;
+        }
+
+        @Override
+        public String getItemStackDisplayName(ItemStack stack) {
+            return I18n.format(getUnlocalizedName() + ".name");
         }
 
         @Override

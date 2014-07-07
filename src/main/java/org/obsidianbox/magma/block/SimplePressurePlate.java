@@ -60,6 +60,41 @@ public class SimplePressurePlate extends BlockPressurePlate {
     }
 
     @Override
+    @SuppressWarnings( {"unchecked", "rawtypes"})
+    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+        list.add(new ItemStack(item, 1, 0));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        bottomIcon = iconRegister.registerIcon(getTextureName() + "_bottom");
+        topIcon = iconRegister.registerIcon(getTextureName() + "_top");
+        sideIcon = iconRegister.registerIcon(getTextureName() + "_side");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        switch (side) {
+            case 0:
+                return bottomIcon;
+            case 1:
+                return topIcon;
+            default:
+                return sideIcon;
+        }
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
     public final String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
     }
@@ -70,28 +105,23 @@ public class SimplePressurePlate extends BlockPressurePlate {
     }
 
     @Override
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item, 1, 0));
-    }
-
-    @Override
-    @SideOnly (Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        bottomIcon = iconRegister.registerIcon(getTextureName() + "_bottom");
-        topIcon = iconRegister.registerIcon(getTextureName() + "_top");
-        sideIcon = iconRegister.registerIcon(getTextureName() + "_side");
-    }
-
-    @Override
-    @SideOnly (Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        switch (side) {
-            case 0:
-                return bottomIcon;
-            case 1:
-                return topIcon;
-            default:
-                return sideIcon;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
+        if (!(o instanceof SimplePressurePlate)) {
+            return false;
+        }
+
+        final SimplePressurePlate that = (SimplePressurePlate) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }

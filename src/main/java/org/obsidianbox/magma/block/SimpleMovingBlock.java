@@ -49,6 +49,14 @@ public class SimpleMovingBlock extends BlockFalling {
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
     @Override
     public final String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
@@ -57,14 +65,6 @@ public class SimpleMovingBlock extends BlockFalling {
     @Override
     public final String getUnlocalizedName() {
         return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
-    public final Addon getAddon() {
-        return addon;
-    }
-
-    public final String getIdentifier() {
-        return identifier;
     }
 
     @Override

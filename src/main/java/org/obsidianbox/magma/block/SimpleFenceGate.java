@@ -58,16 +58,7 @@ public class SimpleFenceGate extends BlockFenceGate {
     }
 
     @Override
-    public final String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
-    @Override
+    @SuppressWarnings( {"unchecked", "rawtypes"})
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
@@ -84,7 +75,7 @@ public class SimpleFenceGate extends BlockFenceGate {
         }
     }
 
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister icon) {
         bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
@@ -98,6 +89,16 @@ public class SimpleFenceGate extends BlockFenceGate {
 
     public final String getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public final String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public final String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
     @Override

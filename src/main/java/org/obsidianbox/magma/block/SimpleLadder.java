@@ -53,6 +53,20 @@ public class SimpleLadder extends BlockLadder {
     }
 
     @Override
+    @SuppressWarnings( {"unchecked", "rawtypes"})
+    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+        list.add(new ItemStack(item, 1, 0));
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
     public final String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
     }
@@ -63,7 +77,23 @@ public class SimpleLadder extends BlockLadder {
     }
 
     @Override
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item, 1, 0));
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleLadder)) {
+            return false;
+        }
+
+        final SimpleLadder that = (SimpleLadder) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }

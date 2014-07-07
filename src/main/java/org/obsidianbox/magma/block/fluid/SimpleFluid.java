@@ -23,16 +23,24 @@
  */
 package org.obsidianbox.magma.block.fluid;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import org.obsidianbox.magma.addon.Addon;
+
 public class SimpleFluid extends Fluid {
-    public SimpleFluid(String fluidName) {
-        this(fluidName, 0, 1000, 295, 1000, false);
+    private final Addon addon;
+    private final String identifier;
+
+    public SimpleFluid(Addon addon, String identifier) {
+        this(addon, identifier, 0, 1000, 295, 1000, false);
     }
 
-    public SimpleFluid(String fluidName, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
-        super(fluidName);
+    public SimpleFluid(Addon addon, String identifier, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
+        super(identifier);
+        this.addon = addon;
+        this.identifier = identifier;
         setDensity(density);
         setGaseous(isGaseous);
         setLuminosity(luminosity);
@@ -40,5 +48,44 @@ public class SimpleFluid extends Fluid {
         setViscosity(viscosity);
 
         FluidRegistry.registerFluid(this);
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
+    public String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleFluid)) {
+            return false;
+        }
+
+        final SimpleFluid that = (SimpleFluid) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }
