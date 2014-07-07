@@ -47,7 +47,7 @@ import org.obsidianbox.magma.lang.Languages;
 public class SimpleDoor extends BlockDoor {
     private final Addon addon;
     private final String identifier;
-    private final boolean isPoweredOnly;
+    private boolean isPoweredOnly;
     private CustomDoorItem associatedItem;
     private IIcon bottomFlippedIcon, bottomIcon, topFlippedIcon, topIcon;
 
@@ -109,7 +109,7 @@ public class SimpleDoor extends BlockDoor {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int val1, float val2, float val3, float val4) {
-        return !isPoweredOnly && super.onBlockActivated(world, x, y, z, player, val1, val2, val3, val4);
+        return !isPoweredOnly;
     }
 
     @Override
@@ -132,6 +132,24 @@ public class SimpleDoor extends BlockDoor {
      */
     public Item getItem() {
         return associatedItem;
+    }
+
+    /**
+     * Sets the power requirement of this block
+     *
+     * @param isPoweredOnly If true, the door requires a power source to open. If false, the door can be opened by a player or villager.
+     */
+    public void setPoweredOnly(boolean isPoweredOnly) {
+        this.isPoweredOnly = isPoweredOnly;
+    }
+
+    /**
+     * Gets the power requirement of this block
+     *
+     * @return Returns true if the door requires a power source, returns false otherwise
+     */
+    public boolean isPoweredOnly() {
+        return isPoweredOnly;
     }
 
     public final Addon getAddon() {
