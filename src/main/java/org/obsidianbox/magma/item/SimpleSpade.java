@@ -25,21 +25,22 @@ package org.obsidianbox.magma.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomItem extends Item {
+public class SimpleSpade extends ItemSpade {
     private final Addon addon;
     private final String identifier;
 
-    public CustomItem(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
+    public SimpleSpade(Addon addon, String identifier, String displayName, ToolMaterial toolMaterial, boolean showInCreativeTab) {
+        super(toolMaterial);
         this.addon = addon;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
+        setTextureName(addon.getDescription().getIdentifier() + ":spades/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -70,11 +71,11 @@ public class CustomItem extends Item {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomItem)) {
+        if (!(o instanceof SimpleSpade)) {
             return false;
         }
 
-        final CustomItem that = (CustomItem) o;
+        final SimpleSpade that = (SimpleSpade) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

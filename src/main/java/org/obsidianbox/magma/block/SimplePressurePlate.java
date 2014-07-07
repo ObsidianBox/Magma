@@ -40,12 +40,12 @@ import net.minecraft.util.IIcon;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomPressurePlate extends BlockPressurePlate {
+public class SimplePressurePlate extends BlockPressurePlate {
     private final Addon addon;
     private final String identifier;
     private IIcon bottomIcon, topIcon, sideIcon;
 
-    public CustomPressurePlate(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, Sensitivity sensitivity) {
+    public SimplePressurePlate(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, Sensitivity sensitivity) {
         super("", material, sensitivity);
         this.addon = addon;
         this.identifier = identifier;

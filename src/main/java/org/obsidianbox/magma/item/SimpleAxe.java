@@ -21,75 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.block;
-
-import java.util.List;
+package org.obsidianbox.magma.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomFenceGate extends BlockFenceGate {
+public class SimpleAxe extends ItemAxe {
     private final Addon addon;
     private final String identifier;
-    private IIcon bottomIcon, sideIcon, topIcon;
 
-    public CustomFenceGate(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
+    public SimpleAxe(Addon addon, String identifier, String displayName, ToolMaterial toolMaterial, boolean showInCreativeTab) {
+        super(toolMaterial);
         this.addon = addon;
         this.identifier = identifier;
 
-        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":gates/" + identifier);
-        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
+        setTextureName(addon.getDescription().getIdentifier() + ":axes/" + identifier);
+        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
-        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerItem(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override
-    public final String getLocalizedName() {
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".item." + identifier;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
         return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
-    @Override
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item, 1, 0));
-    }
-
-    @Override
-    public IIcon getIcon(int side, int type) {
-        switch (side) {
-            case 0:
-                return bottomIcon;
-            case 1:
-                return topIcon;
-            default:
-                return sideIcon;
-        }
-    }
-
-    @SideOnly (Side.CLIENT)
-    @Override
-    public void registerBlockIcons(IIconRegister icon) {
-        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
-        sideIcon = icon.registerIcon(getTextureName() + "_side");
-        topIcon = icon.registerIcon(getTextureName() + "_top");
     }
 
     public final Addon getAddon() {
@@ -105,11 +71,11 @@ public class CustomFenceGate extends BlockFenceGate {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomFenceGate)) {
+        if (!(o instanceof SimpleAxe)) {
             return false;
         }
 
-        final CustomFenceGate that = (CustomFenceGate) o;
+        final SimpleAxe that = (SimpleAxe) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

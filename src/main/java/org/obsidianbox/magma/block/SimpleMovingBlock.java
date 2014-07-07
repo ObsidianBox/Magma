@@ -21,41 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.item;
+package org.obsidianbox.magma.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.BlockFalling;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemSpade;
-import net.minecraft.item.ItemStack;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomSpade extends ItemSpade {
+public class SimpleMovingBlock extends BlockFalling {
     private final Addon addon;
     private final String identifier;
 
-    public CustomSpade(Addon addon, String identifier, String displayName, ToolMaterial toolMaterial, boolean showInCreativeTab) {
-        super(toolMaterial);
+    public SimpleMovingBlock(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        super(material);
         this.addon = addon;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier() + ":spades/" + identifier);
-        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
+        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":moving/" + identifier);
+        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
-        GameRegistry.registerItem(this, addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".item." + identifier;
-    }
-
-    @Override
-    public String getItemStackDisplayName(ItemStack stack) {
+    public final String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public final String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
     public final Addon getAddon() {
@@ -71,11 +72,11 @@ public class CustomSpade extends ItemSpade {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomSpade)) {
+        if (!(o instanceof SimpleMovingBlock)) {
             return false;
         }
 
-        final CustomSpade that = (CustomSpade) o;
+        final SimpleMovingBlock that = (SimpleMovingBlock) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

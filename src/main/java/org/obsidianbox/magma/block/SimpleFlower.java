@@ -28,59 +28,34 @@ import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.item.CustomItemSlab;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomSlab extends BlockSlab {
+public class SimpleFlower extends BlockFlower {
     private final Addon addon;
     private final String identifier;
-    private CustomSlab singleSlab, doubleSlab;
-    private IIcon bottomIcon, sideIcon, topIcon;
+    private IIcon icon;
 
-    public CustomSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        this(addon, identifier, displayName, material, showInCreativeTab, false);
-    }
-
-    private CustomSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, boolean isDoubleSlab) {
-        super(isDoubleSlab, material);
+    public SimpleFlower(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
+        super(0);
         this.addon = addon;
         this.identifier = identifier;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":slabs/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":flowers/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
-
-        if (!isDoubleSlab) {
-
-            if (showInCreativeTab) {
-                setCreativeTab(addon.getGame().getTabs());
-            }
-
-            singleSlab = this;
-            doubleSlab = new CustomSlab(addon, identifier, displayName, material, showInCreativeTab, true);
-
-            register();
-        } else {
-            doubleSlab = this;
+        if (showInCreativeTab) {
+            setCreativeTab(addon.getGame().getTabs());
         }
-    }
-
-    private void register() {
-        // Register our slabs, doubleSlab will be registered with '_double' appended at the end.
-        GameRegistry.registerBlock(singleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier);
-        GameRegistry.registerBlock(doubleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier + "_double");
-        GameRegistry.registerItem(new CustomItemSlab(singleSlab, singleSlab, doubleSlab), addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override
@@ -100,37 +75,13 @@ public class CustomSlab extends BlockSlab {
 
     @Override
     public IIcon getIcon(int side, int type) {
-        switch (side) {
-            case 0:
-                return bottomIcon;
-            case 1:
-                return topIcon;
-            default:
-                return sideIcon;
-        }
+        return icon;
     }
 
     @SideOnly (Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister icon) {
-        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
-        sideIcon = icon.registerIcon(getTextureName() + "_side");
-        topIcon = icon.registerIcon(getTextureName() + "_top");
-    }
-
-    @SideOnly (Side.CLIENT)
-    @Override
-    public Item getItem(World world, int x, int y, int z) {
-        return Item.getItemFromBlock(this);
-    }
-
-    @Override
-    public String func_150002_b(int var1) {
-        return getUnlocalizedName();
-    }
-
-    public CustomSlab getDoubleBlock() {
-        return doubleSlab;
+        this.icon = icon.registerIcon(getTextureName());
     }
 
     public final Addon getAddon() {
@@ -139,5 +90,26 @@ public class CustomSlab extends BlockSlab {
 
     public final String getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleFlower)) {
+            return false;
+        }
+
+        final SimpleFlower that = (SimpleFlower) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }

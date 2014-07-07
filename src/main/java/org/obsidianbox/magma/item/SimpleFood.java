@@ -21,33 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.block;
+package org.obsidianbox.magma.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomBlock extends Block {
-    public static final int DEFAULT_MOJANG_RENDERING = 0;
+public class SimpleFood extends ItemFood {
     private final Addon addon;
     private final String identifier;
-    private int renderType;
 
-    public CustomBlock(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        super(material);
+    public SimpleFood(Addon addon, String identifier, String displayName, int healAmount, float saturationModifier, boolean isWolfsFavorite, boolean showInCreativeTab) {
+        super(healAmount, saturationModifier, isWolfsFavorite);
         this.addon = addon;
         this.identifier = identifier;
-        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
-        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
+
+        setTextureName(addon.getDescription().getIdentifier() + ":food/" + identifier);
+        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
-        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerItem(this, addon.getDescription().getIdentifier() + "_" + identifier);
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".item." + identifier;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return I18n.format(getUnlocalizedName() + ".name");
     }
 
     public final Addon getAddon() {
@@ -58,49 +66,16 @@ public class CustomBlock extends Block {
         return identifier;
     }
 
-    public void setRenderType(int renderType) {
-        if (renderType < 1) {
-            this.renderType = DEFAULT_MOJANG_RENDERING;
-        } else {
-            this.renderType = renderType;
-        }
-    }
-
-    @Override
-    public int getRenderType() {
-        return renderType;
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
-        return renderType == DEFAULT_MOJANG_RENDERING;
-    }
-
-    @Override
-    public boolean isOpaqueCube() {
-        return renderType == DEFAULT_MOJANG_RENDERING;
-    }
-
-    @Override
-    public String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomBlock)) {
+        if (!(o instanceof SimpleFood)) {
             return false;
         }
 
-        final CustomBlock that = (CustomBlock) o;
+        final SimpleFood that = (SimpleFood) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

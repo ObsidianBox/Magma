@@ -23,75 +23,31 @@
  */
 package org.obsidianbox.magma.block;
 
-import java.util.List;
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockFence;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomFence extends BlockFence {
+public class SimpleBlock extends Block {
+    public static final int DEFAULT_MOJANG_RENDERING = 0;
     private final Addon addon;
     private final String identifier;
-    private IIcon bottomIcon, sideIcon, topIcon;
+    private int renderType;
 
-    public CustomFence(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        super("", material);
+    public SimpleBlock(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        super(material);
         this.addon = addon;
         this.identifier = identifier;
-
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":fences/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
-    }
-
-    @Override
-    public final String getLocalizedName() {
-        return I18n.format(getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
-    }
-
-    @Override
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item, 1, 0));
-    }
-
-    @Override
-    public IIcon getIcon(int side, int type) {
-        switch (side) {
-            case 0:
-                return bottomIcon;
-            case 1:
-                return topIcon;
-            default:
-                return sideIcon;
-        }
-    }
-
-    @SideOnly (Side.CLIENT)
-    @Override
-    public void registerBlockIcons(IIconRegister icon) {
-        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
-        sideIcon = icon.registerIcon(getTextureName() + "_side");
-        topIcon = icon.registerIcon(getTextureName() + "_top");
     }
 
     public final Addon getAddon() {
@@ -102,16 +58,49 @@ public class CustomFence extends BlockFence {
         return identifier;
     }
 
+    public void setRenderType(int renderType) {
+        if (renderType < 1) {
+            this.renderType = DEFAULT_MOJANG_RENDERING;
+        } else {
+            this.renderType = renderType;
+        }
+    }
+
+    @Override
+    public int getRenderType() {
+        return renderType;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return renderType == DEFAULT_MOJANG_RENDERING;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return renderType == DEFAULT_MOJANG_RENDERING;
+    }
+
+    @Override
+    public String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomFence)) {
+        if (!(o instanceof SimpleBlock)) {
             return false;
         }
 
-        final CustomFence that = (CustomFence) o;
+        final SimpleBlock that = (SimpleBlock) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

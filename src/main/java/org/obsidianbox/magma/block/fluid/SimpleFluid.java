@@ -26,12 +26,12 @@ package org.obsidianbox.magma.block.fluid;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class CustomFluid extends Fluid {
-    public CustomFluid(String fluidName) {
+public class SimpleFluid extends Fluid {
+    public SimpleFluid(String fluidName) {
         this(fluidName, 0, 1000, 295, 1000, false);
     }
 
-    public CustomFluid(String fluidName, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
+    public SimpleFluid(String fluidName, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
         super(fluidName);
         setDensity(density);
         setGaseous(isGaseous);

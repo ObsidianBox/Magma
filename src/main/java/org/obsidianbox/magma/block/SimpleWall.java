@@ -26,25 +26,32 @@ package org.obsidianbox.magma.block;
 import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.BlockLadder;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockWall;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomLadder extends BlockLadder {
+public class SimpleWall extends BlockWall {
     private final Addon addon;
     private final String identifier;
+    private IIcon bottomIcon, sideIcon, topIcon;
 
-    public CustomLadder(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
+    public SimpleWall(Addon addon, String identifier, String displayName, Block toWallify, boolean showInCreativeTab) {
+        super(toWallify);
         this.addon = addon;
         this.identifier = identifier;
 
-        setBlockName(addon.getDescription() + ".title.block" + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":ladders/" + identifier);
+        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":walls/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -65,5 +72,54 @@ public class CustomLadder extends BlockLadder {
     @Override
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
+    }
+
+    @Override
+    public IIcon getIcon(int side, int type) {
+        switch (side) {
+            case 0:
+                return bottomIcon;
+            case 1:
+                return topIcon;
+            default:
+                return sideIcon;
+        }
+    }
+
+    @SideOnly (Side.CLIENT)
+    @Override
+    public void registerBlockIcons(IIconRegister icon) {
+        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
+        sideIcon = icon.registerIcon(getTextureName() + "_side");
+        topIcon = icon.registerIcon(getTextureName() + "_top");
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SimpleWall)) {
+            return false;
+        }
+
+        final SimpleWall that = (SimpleWall) o;
+
+        return addon.equals(that.addon) && identifier.equals(that.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }

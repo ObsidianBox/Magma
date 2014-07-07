@@ -25,22 +25,21 @@ package org.obsidianbox.magma.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemAxe;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomAxe extends ItemAxe {
+public class SimpleItem extends Item {
     private final Addon addon;
     private final String identifier;
 
-    public CustomAxe(Addon addon, String identifier, String displayName, ToolMaterial toolMaterial, boolean showInCreativeTab) {
-        super(toolMaterial);
+    public SimpleItem(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
         this.addon = addon;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier() + ":axes/" + identifier);
+        setTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -71,11 +70,11 @@ public class CustomAxe extends ItemAxe {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomAxe)) {
+        if (!(o instanceof SimpleItem)) {
             return false;
         }
 
-        final CustomAxe that = (CustomAxe) o;
+        final SimpleItem that = (SimpleItem) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

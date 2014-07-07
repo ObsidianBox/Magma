@@ -21,42 +21,63 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.block;
+package org.obsidianbox.magma.item;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.BlockFalling;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 
+import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomMovingBlock extends BlockFalling {
+public class SimpleArmor extends ItemArmor {
     private final Addon addon;
+    private final ArmorMaterial material;
+    private final ArmorType type;
     private final String identifier;
+    private static final int renderIndex;
 
-    public CustomMovingBlock(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        super(material);
+    static {
+        if (FMLCommonHandler.instance().getSide().isClient()) {
+            renderIndex = RenderingRegistry.addNewArmourRendererPrefix("Custom");
+        } else {
+            renderIndex = 0;
+        }
+    }
+
+    public SimpleArmor(Addon addon, String identifier, String displayName, ArmorMaterial material, ArmorType type, boolean showInCreativeTab) {
+        super(material, renderIndex, type.ordinal());
         this.addon = addon;
+        this.material = material;
+        this.type = type;
         this.identifier = identifier;
 
-        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":moving/" + identifier);
-        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
+        setTextureName(addon.getDescription().getIdentifier() + ":armor/" + identifier);
+        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
-        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerItem(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override
-    public final String getLocalizedName() {
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".item." + identifier;
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
         return I18n.format(getUnlocalizedName() + ".name");
     }
 
     @Override
-    public final String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+        return Game.MOD_ID.toLowerCase() + ":textures/models/" + addon.getDescription().getIdentifier() + "/armor/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
     }
 
     public final Addon getAddon() {
@@ -72,19 +93,19 @@ public class CustomMovingBlock extends BlockFalling {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomMovingBlock)) {
+        if (!(o instanceof SimpleArmor)) {
             return false;
         }
 
-        final CustomMovingBlock that = (CustomMovingBlock) o;
+        final SimpleArmor that = (SimpleArmor) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }
 
-    @Override
-    public int hashCode() {
-        int result = addon.hashCode();
-        result = 31 * result + identifier.hashCode();
-        return result;
+    public static enum ArmorType {
+        HEAD,
+        TORSO,
+        LEGS,
+        FEET
     }
 }

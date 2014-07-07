@@ -26,10 +26,10 @@ package org.obsidianbox.magma.item;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemSlab;
 
-import org.obsidianbox.magma.block.CustomSlab;
+import org.obsidianbox.magma.block.SimpleSlab;
 
-public class CustomItemSlab extends ItemSlab {
-    public CustomItemSlab(Block block, CustomSlab singleSlab, CustomSlab doubleSlab) {
+public class SimpleItemSlab extends ItemSlab {
+    public SimpleItemSlab(Block block, SimpleSlab singleSlab, SimpleSlab doubleSlab) {
         super(singleSlab, singleSlab, doubleSlab, false);
     }
 }

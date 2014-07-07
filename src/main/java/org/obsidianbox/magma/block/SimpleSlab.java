@@ -21,13 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.block.fluid;
+package org.obsidianbox.magma.block;
 
 import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
@@ -35,39 +36,51 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.BlockFluidClassic;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.block.fluid.CustomFluid;
+import org.obsidianbox.magma.item.SimpleItemSlab;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomBlockFluid extends BlockFluidClassic {
+public class SimpleSlab extends BlockSlab {
     private final Addon addon;
     private final String identifier;
-    private IIcon still, flowing;
+    private SimpleSlab singleSlab, doubleSlab;
+    private IIcon bottomIcon, sideIcon, topIcon;
 
-    public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        this(addon, identifier, displayName, material, showInCreativeTab, new CustomFluid(identifier));
+    public SimpleSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        this(addon, identifier, displayName, material, showInCreativeTab, false);
     }
 
-    public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, int luminosity, int density, int temperature, int viscosity, boolean isGaseous) {
-        this(addon, identifier, displayName, material, showInCreativeTab, new CustomFluid(identifier, luminosity, density, temperature, viscosity, isGaseous));
-    }
-
-    public CustomBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, CustomFluid fluid) {
-        super(fluid, material);
+    private SimpleSlab(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab, boolean isDoubleSlab) {
+        super(isDoubleSlab, material);
         this.addon = addon;
         this.identifier = identifier;
 
-        setBlockName(addon.getDescription() + ".title.block" + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":fluids/" + identifier);
+        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":slabs/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
-        if (showInCreativeTab) {
-            setCreativeTab(addon.getGame().getTabs());
+
+        if (!isDoubleSlab) {
+
+            if (showInCreativeTab) {
+                setCreativeTab(addon.getGame().getTabs());
+            }
+
+            singleSlab = this;
+            doubleSlab = new SimpleSlab(addon, identifier, displayName, material, showInCreativeTab, true);
+
+            register();
+        } else {
+            doubleSlab = this;
         }
-        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
+    }
+
+    private void register() {
+        // Register our slabs, doubleSlab will be registered with '_double' appended at the end.
+        GameRegistry.registerBlock(singleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier);
+        GameRegistry.registerBlock(doubleSlab, null, addon.getDescription().getIdentifier() + "_" + identifier + "_double");
+        GameRegistry.registerItem(new SimpleItemSlab(singleSlab, singleSlab, doubleSlab), addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     @Override
@@ -81,40 +94,50 @@ public class CustomBlockFluid extends BlockFluidClassic {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
 
     @Override
-    @SideOnly (Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        still = iconRegister.registerIcon(getTextureName());
-        flowing = iconRegister.registerIcon(getTextureName() + "_flow");
-        getFluid().setIcons(still, flowing);
-    }
-
-    @Override
-    @SideOnly (Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
+    public IIcon getIcon(int side, int type) {
         switch (side) {
             case 0:
-                return still;
+                return bottomIcon;
             case 1:
-                return still;
+                return topIcon;
             default:
-                return flowing;
+                return sideIcon;
         }
     }
 
+    @SideOnly (Side.CLIENT)
     @Override
-    public boolean canDisplace(IBlockAccess world, int x, int y, int z) {
-        return !world.getBlock(x, y, z).getMaterial().isLiquid() && super.canDisplace(world, x, y, z);
+    public void registerBlockIcons(IIconRegister icon) {
+        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
+        sideIcon = icon.registerIcon(getTextureName() + "_side");
+        topIcon = icon.registerIcon(getTextureName() + "_top");
+    }
+
+    @SideOnly (Side.CLIENT)
+    @Override
+    public Item getItem(World world, int x, int y, int z) {
+        return Item.getItemFromBlock(this);
     }
 
     @Override
-    public boolean displaceIfPossible(World world, int x, int y, int z) {
-        return !world.getBlock(x, y, z).getMaterial().isLiquid() && super.displaceIfPossible(world, x, y, z);
+    public String func_150002_b(int var1) {
+        return getUnlocalizedName();
+    }
+
+    public SimpleSlab getDoubleBlock() {
+        return doubleSlab;
+    }
+
+    public final Addon getAddon() {
+        return addon;
+    }
+
+    public final String getIdentifier() {
+        return identifier;
     }
 }
-

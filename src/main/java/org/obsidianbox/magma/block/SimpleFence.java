@@ -28,12 +28,11 @@ import java.util.List;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockWall;
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -41,18 +40,18 @@ import net.minecraft.util.IIcon;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomWall extends BlockWall {
+public class SimpleFence extends BlockFence {
     private final Addon addon;
     private final String identifier;
     private IIcon bottomIcon, sideIcon, topIcon;
 
-    public CustomWall(Addon addon, String identifier, String displayName, Block toWallify, boolean showInCreativeTab) {
-        super(toWallify);
+    public SimpleFence(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
+        super("", material);
         this.addon = addon;
         this.identifier = identifier;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":walls/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":fences/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -108,11 +107,11 @@ public class CustomWall extends BlockWall {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomWall)) {
+        if (!(o instanceof SimpleFence)) {
             return false;
         }
 
-        final CustomWall that = (CustomWall) o;
+        final SimpleFence that = (SimpleFence) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

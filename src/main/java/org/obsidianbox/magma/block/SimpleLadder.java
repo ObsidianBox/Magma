@@ -23,27 +23,28 @@
  */
 package org.obsidianbox.magma.block;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.BlockTrapDoor;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.IIcon;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomTrapDoor extends BlockTrapDoor {
+public class SimpleLadder extends BlockLadder {
     private final Addon addon;
     private final String identifier;
-    private IIcon topIcon, bottomIcon, sideIcon;
 
-    public CustomTrapDoor(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
-        super(material);
+    public SimpleLadder(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
         this.addon = addon;
         this.identifier = identifier;
-        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + "trapdoors/" + identifier);
+
+        setBlockName(addon.getDescription() + ".title.block" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":ladders/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -51,40 +52,18 @@ public class CustomTrapDoor extends BlockTrapDoor {
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
-    public final Addon getAddon() {
-        return addon;
-    }
-
-    public final String getIdentifier() {
-        return identifier;
-    }
-
     @Override
-    public void registerBlockIcons(IIconRegister icon) {
-        topIcon = icon.registerIcon(getTextureName() + "_top");
-        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
-        sideIcon = icon.registerIcon(getTextureName() + "_side");
-    }
-
-    @Override
-    public IIcon getIcon(int side, int meta) {
-        switch (side) {
-            case 0:
-                return bottomIcon;
-            case 1:
-                return topIcon;
-            default:
-                return sideIcon;
-        }
-    }
-
-    @Override
-    public String getLocalizedName() {
+    public final String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
     }
 
     @Override
-    public String getUnlocalizedName() {
+    public final String getUnlocalizedName() {
         return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+        list.add(new ItemStack(item, 1, 0));
     }
 }

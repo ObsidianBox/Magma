@@ -44,14 +44,14 @@ import net.minecraft.world.World;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomDoor extends BlockDoor {
+public class SimpleDoor extends BlockDoor {
     private final Addon addon;
     private final String identifier;
     private boolean isPoweredOnly;
     private CustomDoorItem associatedItem;
     private IIcon bottomFlippedIcon, bottomIcon, topFlippedIcon, topIcon;
 
-    public CustomDoor(Addon addon, String identifier, String displayName, Material material, boolean isPoweredOnly, boolean showInCreativeTab) {
+    public SimpleDoor(Addon addon, String identifier, String displayName, Material material, boolean isPoweredOnly, boolean showInCreativeTab) {
         super(material);
         this.addon = addon;
         this.identifier = identifier;
@@ -157,11 +157,11 @@ public class CustomDoor extends BlockDoor {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomDoor)) {
+        if (!(o instanceof SimpleDoor)) {
             return false;
         }
 
-        final CustomDoor that = (CustomDoor) o;
+        final SimpleDoor that = (SimpleDoor) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }
@@ -178,7 +178,7 @@ public class CustomDoor extends BlockDoor {
         private final String identifier;
         private Block associatedBlock;
 
-        private CustomDoorItem(Addon addon, String identifier, String displayName, Material material, CustomDoor associatedBlock, boolean showInCreativeTab) {
+        private CustomDoorItem(Addon addon, String identifier, String displayName, Material material, SimpleDoor associatedBlock, boolean showInCreativeTab) {
             super(material);
             this.addon = addon;
             this.identifier = identifier;

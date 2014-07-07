@@ -36,7 +36,7 @@ import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.*;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.block.CustomBlock;
+import org.obsidianbox.magma.block.SimpleBlock;
 
 /**
  * A simple renderer that renders a {@link net.minecraftforge.client.model.obj.WavefrontObject} (.obj) and texture
@@ -56,11 +56,11 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
     }
 
     /**
-     * Creates a renderer using properties from a {@link org.obsidianbox.magma.block.CustomBlock}
+     * Creates a renderer using properties from a {@link org.obsidianbox.magma.block.SimpleBlock}
      *
      * This will also set the render type for that block
      */
-    public SimpleBlockOBJRenderer(Addon addon, int renderID, CustomBlock block) {
+    public SimpleBlockOBJRenderer(Addon addon, int renderID, SimpleBlock block) {
         super(addon, renderID);
         final IModelCustom temp = AdvancedModelLoader.loadModel(new ResourceLocation(addon.getDescription().getIdentifier(), "models/blocks/" + block.getIdentifier() + ".obj"));
         if (!(temp instanceof WavefrontObject)) {

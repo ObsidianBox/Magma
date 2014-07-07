@@ -25,22 +25,22 @@ package org.obsidianbox.magma.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomFood extends ItemFood {
+public class SimpleSword extends ItemSword {
     private final Addon addon;
     private final String identifier;
 
-    public CustomFood(Addon addon, String identifier, String displayName, int healAmount, float saturationModifier, boolean isWolfsFavorite, boolean showInCreativeTab) {
-        super(healAmount, saturationModifier, isWolfsFavorite);
+    public SimpleSword(Addon addon, String identifier, String displayName, ToolMaterial toolMaterial, boolean showInCreativeTab) {
+        super(toolMaterial);
         this.addon = addon;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier() + ":food/" + identifier);
+        setTextureName(addon.getDescription().getIdentifier() + ":swords/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -71,11 +71,11 @@ public class CustomFood extends ItemFood {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomFood)) {
+        if (!(o instanceof SimpleSword)) {
             return false;
         }
 
-        final CustomFood that = (CustomFood) o;
+        final SimpleSword that = (SimpleSword) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

@@ -34,11 +34,11 @@ import net.minecraft.item.ItemTool;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class CustomTool extends ItemTool {
+public class SimpleTool extends ItemTool {
     private final Addon addon;
     private final String identifier;
 
-    public CustomTool(Addon addon, String identifier, String displayName, float attackValue, ToolMaterial toolMaterial, Set<Block> effectiveBlocksSet, boolean showInCreativeTab) {
+    public SimpleTool(Addon addon, String identifier, String displayName, float attackValue, ToolMaterial toolMaterial, Set<Block> effectiveBlocksSet, boolean showInCreativeTab) {
         super(attackValue, toolMaterial, effectiveBlocksSet);
         this.addon = addon;
         this.identifier = identifier;
@@ -74,11 +74,11 @@ public class CustomTool extends ItemTool {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CustomTool)) {
+        if (!(o instanceof SimpleTool)) {
             return false;
         }
 
-        final CustomTool that = (CustomTool) o;
+        final SimpleTool that = (SimpleTool) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }
