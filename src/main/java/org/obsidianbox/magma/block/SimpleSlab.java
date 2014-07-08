@@ -72,7 +72,7 @@ public class SimpleSlab extends BlockSlab {
             }
 
             singleSlab = this;
-            doubleSlab = new SimpleDoubleSlab(this);
+            doubleSlab = new SimpleDoubleSlab(this, displayName);
             GameRegistry.registerBlock(this, SimpleItemSlab.class, addon.getDescription().getIdentifier() + "_" + identifier);
         }
     }
@@ -162,8 +162,8 @@ public class SimpleSlab extends BlockSlab {
     }
 
     protected static class SimpleDoubleSlab extends SimpleSlab {
-        public SimpleDoubleSlab(SimpleSlab singleSlab) {
-            super(singleSlab.getAddon(), singleSlab.getIdentifier() + "_double", singleSlab.getLocalizedName(), singleSlab.getMaterial(), false, true);
+        public SimpleDoubleSlab(SimpleSlab singleSlab, String displayName) {
+            super(singleSlab.getAddon(), singleSlab.getIdentifier() + "_double", displayName, singleSlab.getMaterial(), false, true);
             GameRegistry.registerBlock(this, SimpleItemSlab.class, singleSlab.getAddon().getDescription().getIdentifier() + "_" + singleSlab.getIdentifier() + "_double");
         }
     }
