@@ -21,53 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.item;
+package org.obsidianbox.magma.block;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
-import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class SimpleArmor extends ItemArmor {
+public class SimpleFlowerPot extends BlockFlowerPot {
     private final Addon addon;
-    private final ArmorMaterial material;
-    private final ArmorType type;
     private final String identifier;
-    private static final int renderIndex;
+    private IIcon bottomIcon, topIcon, sideIcon;
 
-    static {
-        if (FMLCommonHandler.instance().getSide().isClient()) {
-            renderIndex = RenderingRegistry.addNewArmourRendererPrefix("Custom");
-        } else {
-            renderIndex = 0;
-        }
-    }
-
-    public SimpleArmor(Addon addon, String identifier, String displayName, ArmorMaterial material, ArmorType type, boolean showInCreativeTab) {
-        super(material, renderIndex, type.ordinal());
+    public SimpleFlowerPot(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
         this.addon = addon;
-        this.material = material;
-        this.type = type;
         this.identifier = identifier;
-
-        setTextureName(addon.getDescription().getIdentifier() + ":armors/" + identifier);
-        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
+        setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
+        addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
-        GameRegistry.registerItem(this, addon.getDescription().getIdentifier() + "_" + identifier);
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        return addon.getDescription().getIdentifier() + ":textures/items/armors/model/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
+        GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
     }
 
     public final Addon getAddon() {
@@ -79,13 +57,13 @@ public class SimpleArmor extends ItemArmor {
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return addon.getDescription().getIdentifier() + ".item." + identifier;
+    public String getLocalizedName() {
+        return I18n.format(getUnlocalizedName() + ".name");
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        return I18n.format(getUnlocalizedName() + ".name");
+    public String getUnlocalizedName() {
+        return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
     @Override
@@ -93,19 +71,19 @@ public class SimpleArmor extends ItemArmor {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SimpleArmor)) {
+        if (!(o instanceof SimpleFlowerPot)) {
             return false;
         }
 
-        final SimpleArmor that = (SimpleArmor) o;
+        final SimpleFlowerPot that = (SimpleFlowerPot) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }
 
-    public static enum ArmorType {
-        HEAD,
-        TORSO,
-        LEGS,
-        FEET
+    @Override
+    public int hashCode() {
+        int result = addon.hashCode();
+        result = 31 * result + identifier.hashCode();
+        return result;
     }
 }
