@@ -26,6 +26,7 @@ package org.obsidianbox.magma.resource;
 import java.net.URL;
 
 import cpw.mods.fml.relauncher.Side;
+
 import org.obsidianbox.magma.addon.Addon;
 
 public class UnreachableURLException extends Exception {

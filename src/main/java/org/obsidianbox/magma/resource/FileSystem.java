@@ -27,11 +27,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.Set;
 import java.util.Map;
+import java.util.Set;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import org.obsidianbox.magma.addon.Addon;
 
 public interface FileSystem {
@@ -44,7 +45,7 @@ public interface FileSystem {
      * @param path The path to the file being cached
      * @throws FileNotFoundException If the path resolves to a file not found
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public void cache(Addon addon, Path path) throws FileNotFoundException;
 
     /**
@@ -56,7 +57,7 @@ public interface FileSystem {
      * @param url The URL being cached
      * @throws UnreachableURLException If the server cannot contact the URL
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public void cache(Addon addon, URL url) throws UnreachableURLException;
 
     /**
@@ -66,7 +67,7 @@ public interface FileSystem {
      *
      * @param addon Addon to lookup
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public Set<Path> getPathCache(Addon addon);
 
     /**
@@ -76,7 +77,7 @@ public interface FileSystem {
      *
      * @param addon Addon to lookup
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public Set<URL> getURLCache(Addon addon);
 
     /**
@@ -88,7 +89,7 @@ public interface FileSystem {
      * @param name The identifier for the file
      * @return The file or null if not found
      */
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public File get(Addon addon, String name);
 
     /**
@@ -99,7 +100,7 @@ public interface FileSystem {
      * @param addon The addon which provided the files
      * @return The collection of files
      */
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public Set<File> getAllFor(Addon addon);
 
     /**
@@ -109,6 +110,6 @@ public interface FileSystem {
      *
      * @return The map of addon files
      */
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public Map<Addon, Set<File>> getAll();
 }

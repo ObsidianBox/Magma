@@ -24,11 +24,13 @@
 package org.obsidianbox.magma.message;
 
 import net.minecraft.entity.player.EntityPlayer;
+
 import org.obsidianbox.magma.Game;
 
-public interface MessageHandler <T extends Message> {
+public interface MessageHandler<T extends Message> {
     /**
      * Called when a {@link org.obsidianbox.magma.message.Message} is handled.
+     *
      * @param game The game object
      * @param player The player this message targeted
      * @param message The message being handled

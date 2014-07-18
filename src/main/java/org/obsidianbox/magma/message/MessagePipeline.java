@@ -27,12 +27,12 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+
 import org.obsidianbox.magma.addon.Addon;
 
 public interface MessagePipeline {
     /**
-     * Registers a {@link org.obsidianbox.magma.message.Message} with its {@link org.obsidianbox.magma.message.MessageHandler}
-     * for the pipeline.
+     * Registers a {@link org.obsidianbox.magma.message.Message} with its {@link org.obsidianbox.magma.message.MessageHandler} for the pipeline.
      *
      * @param addon The {@link org.obsidianbox.magma.addon.Addon} registering the message
      * @param message The message being registered
@@ -47,7 +47,7 @@ public interface MessagePipeline {
      *
      * @param message The message to send
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public void sendToAll(Message message);
 
     /**
@@ -56,7 +56,7 @@ public interface MessagePipeline {
      * @param message The message to send
      * @param player The player to send it to
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public void sendTo(Message message, EntityPlayer player);
 
     /**
@@ -65,7 +65,7 @@ public interface MessagePipeline {
      * @param message The message to send
      * @param point The point around which to send
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public void sendToAllAround(Message message, NetworkRegistry.TargetPoint point);
 
     /**
@@ -74,7 +74,7 @@ public interface MessagePipeline {
      * @param message The message to send
      * @param dimensionId The dimension id to target
      */
-    @SideOnly (Side.SERVER)
+    @SideOnly(Side.SERVER)
     public void sendToDimension(Message message, int dimensionId);
 
     /**
@@ -82,6 +82,6 @@ public interface MessagePipeline {
      *
      * @param message The message to send
      */
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public void sendToServer(Message message);
 }

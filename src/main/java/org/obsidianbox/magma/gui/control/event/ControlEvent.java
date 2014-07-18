@@ -26,9 +26,10 @@ package org.obsidianbox.magma.gui.control.event;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import org.obsidianbox.magma.gui.Control;
 
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public abstract class ControlEvent extends Event {
     private final Control control;
 

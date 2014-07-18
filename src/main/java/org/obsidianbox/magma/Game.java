@@ -28,6 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.obsidianbox.magma.addon.AddonManager;
 import org.obsidianbox.magma.lang.LanguageManager;
 import org.obsidianbox.magma.message.MessagePipeline;
@@ -113,12 +114,12 @@ public final class Game {
         this.messagePipeline = messagePipeline;
     }
 
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public Renderer getGuiRenderer() {
         return guiRenderer;
     }
 
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public void setGuiRenderer(Renderer guiRenderer) {
         if (this.guiRenderer != null) {
             throw new IllegalStateException("Setting the gui renderer again is not allowed!");

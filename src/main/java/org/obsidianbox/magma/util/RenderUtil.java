@@ -34,7 +34,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.BufferUtils;
+import org.lwjgl.*;
 
 public class RenderUtil {
     public static final Tessellator TESSELLATOR = Tessellator.instance;

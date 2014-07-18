@@ -35,6 +35,7 @@ public class MessageBox extends Form {
     private Buttons buttons;
     private Icon icon;
     private String content, title;
+
     /**
      * This constructor will not create a title or text body
      *
@@ -43,6 +44,7 @@ public class MessageBox extends Form {
     public MessageBox(Addon addon) {
         this(addon, null, null);
     }
+
     /**
      * This constructor will default to {@link MessageBox.Buttons#OK} as the button to use
      *
@@ -116,8 +118,7 @@ public class MessageBox extends Form {
     }
 
     /**
-     * Sets the {@link MessageBox}'s caller <p> If no caller is set then the top form will be focused on when {@link MessageBox} is
-     * closed.
+     * Sets the {@link MessageBox}'s caller <p> If no caller is set then the top form will be focused on when {@link MessageBox} is closed.
      *
      * @param caller The {@link org.obsidianbox.magma.gui.Form} that this {@link MessageBox} will focus to when closed
      */

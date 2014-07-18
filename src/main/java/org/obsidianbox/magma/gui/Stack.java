@@ -31,7 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 /**
  * Contains all {@link Form}s on the GUI and handles transferring focus status to the correct form.
  */
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public interface Stack {
     /**
      * Adds the {@link Form} to the stack for showing to the user

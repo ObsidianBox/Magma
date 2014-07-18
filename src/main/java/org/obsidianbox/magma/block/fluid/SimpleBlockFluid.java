@@ -65,13 +65,13 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     }
 
     @Override
-    @SuppressWarnings ({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
 
     @Override
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         IIcon still = iconRegister.registerIcon(getTextureName());
         IIcon flowing = iconRegister.registerIcon(getTextureName() + "_flow");
@@ -79,7 +79,7 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     }
 
     @Override
-    @SideOnly (Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         switch (side) {
             case 0:

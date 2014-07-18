@@ -26,11 +26,12 @@ package org.obsidianbox.magma.gui.control.event;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import org.obsidianbox.magma.gui.action.FocusActions;
+
 import org.obsidianbox.magma.gui.Control;
+import org.obsidianbox.magma.gui.action.FocusActions;
 
 @Cancelable
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public final class ControlFocusEvent extends ControlEvent {
     private final FocusActions action;
 
