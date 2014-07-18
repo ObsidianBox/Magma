@@ -27,6 +27,7 @@ import com.flowpowered.math.vector.Vector4f;
 import com.flowpowered.math.vector.Vector4i;
 
 public class Color extends Vector4i {
+    private static final long serialVersionUID = 1L;
     private static final float conversion = 1.0f / 255.0f;
 
     public Color(int r, int g, int b, int a) {

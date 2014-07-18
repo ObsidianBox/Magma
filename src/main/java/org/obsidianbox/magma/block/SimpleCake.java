@@ -79,16 +79,13 @@ public class SimpleCake extends BlockCake {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-
         switch (side) {
-            case 1:
-                return topIcon;
             case 0:
                 return bottomIcon;
+            case 1:
+                return topIcon;
             case 4:
-                if (meta > 0) {
-                    return innerIcon;
-                }
+                return meta > 0 ? innerIcon : sideIcon;
             default:
                 return sideIcon;
         }

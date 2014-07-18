@@ -59,6 +59,9 @@ public class SimpleBlockOBJRenderer extends BlockRenderer {
      * Creates a renderer using properties from a {@link org.obsidianbox.magma.block.SimpleBlock}
      *
      * This will also set the render type for that block
+     * @param addon The addon creating the block
+     * @param renderID The render type used by Forge
+     * @param block Block being rendered
      */
     public SimpleBlockOBJRenderer(Addon addon, int renderID, SimpleBlock block) {
         super(addon, renderID);
