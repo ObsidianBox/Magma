@@ -57,7 +57,7 @@ public class SimpleArmor extends ItemArmor {
         this.type = type;
         this.identifier = identifier;
 
-        setTextureName(addon.getDescription().getIdentifier() + ":armors/" + identifier);
+        setTextureName(addon.getDescription().getIdentifier() + ":armor/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "item." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
@@ -67,7 +67,7 @@ public class SimpleArmor extends ItemArmor {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        return addon.getDescription().getIdentifier() + ":textures/items/armors/model/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
+        return addon.getDescription().getIdentifier() + ":textures/items/armor/model/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
     }
 
     public final Addon getAddon() {
