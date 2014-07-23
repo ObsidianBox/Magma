@@ -26,7 +26,8 @@ package org.obsidianbox.magma.gui.control.event;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.*;
+
 import org.obsidianbox.magma.gui.Control;
 import org.obsidianbox.magma.gui.action.ClickActions;
 
@@ -34,7 +35,7 @@ import org.obsidianbox.magma.gui.action.ClickActions;
  * Callback when a control is double clicked by the user.
  */
 @Cancelable
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public final class ControlDoubleClickEvent extends ControlClickEvent {
     public ControlDoubleClickEvent(Control control, int x, int y, ClickActions type, Keyboard... keys) {
         super(control, x, y, type, keys);

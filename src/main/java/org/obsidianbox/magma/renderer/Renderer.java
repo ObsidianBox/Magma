@@ -31,15 +31,11 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.flowpowered.math.vector.Vector2f;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
-import org.obsidianbox.magma.Game;
-import org.obsidianbox.magma.addon.Addon;
-
 import org.spout.renderer.api.Camera;
 import org.spout.renderer.api.Creatable;
 import org.spout.renderer.api.Material;
@@ -61,10 +57,15 @@ import org.spout.renderer.api.model.StringModel.AntiAliasing;
 import org.spout.renderer.api.util.CausticUtil;
 import org.spout.renderer.api.util.MeshGenerator;
 
+import com.flowpowered.math.vector.Vector2f;
+
+import org.obsidianbox.magma.Game;
+import org.obsidianbox.magma.addon.Addon;
+
 /**
  * Handles creation of gl objects and rendering them via Caustic
  */
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public abstract class Renderer {
     protected final Game game;
     // Caustic properties

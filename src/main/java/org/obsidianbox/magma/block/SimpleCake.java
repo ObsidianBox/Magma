@@ -23,56 +23,32 @@
  */
 package org.obsidianbox.magma.block;
 
-import java.util.List;
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockCake;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class SimpleFlower extends BlockFlower {
+public class SimpleCake extends BlockCake {
     private final Addon addon;
     private final String identifier;
-    private IIcon icon;
+    private IIcon topIcon, bottomIcon, sideIcon, innerIcon;
 
-    public SimpleFlower(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        super(0);
+    public SimpleCake(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
         this.addon = addon;
         this.identifier = identifier;
 
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":flowers/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + "cakes/" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
-    }
-
-    @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item, 1, 0));
-    }
-
-    @Override
-    public IIcon getIcon(int side, int type) {
-        return icon;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerBlockIcons(IIconRegister icon) {
-        this.icon = icon.registerIcon(getTextureName());
     }
 
     public final Addon getAddon() {
@@ -84,13 +60,35 @@ public class SimpleFlower extends BlockFlower {
     }
 
     @Override
-    public final String getLocalizedName() {
+    public String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
     }
 
     @Override
-    public final String getUnlocalizedName() {
+    public String getUnlocalizedName() {
         return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister icon) {
+        topIcon = icon.registerIcon(getTextureName() + "_top");
+        bottomIcon = icon.registerIcon(getTextureName() + "_bottom");
+        sideIcon = icon.registerIcon(getTextureName() + "_side");
+        innerIcon = icon.registerIcon(getTextureName() + "_inner");
+    }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        switch (side) {
+            case 0:
+                return bottomIcon;
+            case 1:
+                return topIcon;
+            case 4:
+                return meta > 0 ? innerIcon : sideIcon;
+            default:
+                return sideIcon;
+        }
     }
 
     @Override
@@ -98,11 +96,11 @@ public class SimpleFlower extends BlockFlower {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SimpleFlower)) {
+        if (!(o instanceof SimpleCake)) {
             return false;
         }
 
-        final SimpleFlower that = (SimpleFlower) o;
+        final SimpleCake that = (SimpleCake) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

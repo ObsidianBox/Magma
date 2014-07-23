@@ -28,15 +28,15 @@ import java.util.UUID;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import org.spout.renderer.api.model.Model;
+
 import org.obsidianbox.magma.gui.control.event.ControlClickEvent;
 import org.obsidianbox.magma.gui.control.event.ControlEnableEvent;
 import org.obsidianbox.magma.gui.control.event.ControlFocusEvent;
 import org.obsidianbox.magma.gui.control.event.ControlHoverEvent;
 import org.obsidianbox.magma.gui.control.event.ControlVisibilityEvent;
 
-import org.spout.renderer.api.model.Model;
-
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public abstract class Control {
     private final Form form;
     private final UUID uuid;

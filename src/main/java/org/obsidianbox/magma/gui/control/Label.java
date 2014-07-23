@@ -27,10 +27,10 @@ import java.awt.Font;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.obsidianbox.magma.gui.Form;
-
 import org.spout.renderer.api.model.Model;
 import org.spout.renderer.api.model.StringModel;
+
+import org.obsidianbox.magma.gui.Form;
 
 public class Label extends LabelBase {
     private final List<Model> models = new LinkedList<>();

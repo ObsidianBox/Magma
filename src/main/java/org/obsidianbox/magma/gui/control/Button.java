@@ -27,13 +27,14 @@ import java.awt.Font;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.flowpowered.math.vector.Vector2f;
-import org.obsidianbox.magma.gui.Form;
-import org.obsidianbox.magma.renderer.Colors;
-
 import org.spout.renderer.api.data.UniformHolder;
 import org.spout.renderer.api.model.Model;
 import org.spout.renderer.api.model.StringModel;
+
+import com.flowpowered.math.vector.Vector2f;
+
+import org.obsidianbox.magma.gui.Form;
+import org.obsidianbox.magma.renderer.Colors;
 
 public class Button extends LabelBase {
     private final List<Model> models = new LinkedList<>();

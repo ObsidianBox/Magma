@@ -52,7 +52,9 @@ public final class AddonDescription {
         return version;
     }
 
-    public AddonMode getMode() { return mode; }
+    public AddonMode getMode() {
+        return mode;
+    }
 
     public String getMain() {
         return mainClassName;

@@ -45,7 +45,6 @@ import org.obsidianbox.magma.lang.Languages;
 public class SimpleBlockFluid extends BlockFluidClassic {
     private final Addon addon;
     private final String identifier;
-    private IIcon still, flowing;
 
     public SimpleBlockFluid(Addon addon, String identifier, String displayName, Material material, boolean showInCreativeTab) {
         this(addon, identifier, displayName, material, showInCreativeTab, new SimpleFluid(addon, identifier));
@@ -74,8 +73,8 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        still = iconRegister.registerIcon(getTextureName());
-        flowing = iconRegister.registerIcon(getTextureName() + "_flow");
+        IIcon still = iconRegister.registerIcon(getTextureName());
+        IIcon flowing = iconRegister.registerIcon(getTextureName() + "_flow");
         getFluid().setIcons(still, flowing);
     }
 
@@ -84,11 +83,11 @@ public class SimpleBlockFluid extends BlockFluidClassic {
     public IIcon getIcon(int side, int meta) {
         switch (side) {
             case 0:
-                return still;
+                return getFluid().getStillIcon();
             case 1:
-                return still;
+                return getFluid().getStillIcon();
             default:
-                return flowing;
+                return getFluid().getFlowingIcon();
         }
     }
 

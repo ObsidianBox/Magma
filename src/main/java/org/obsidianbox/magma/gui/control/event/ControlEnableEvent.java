@@ -26,13 +26,14 @@ package org.obsidianbox.magma.gui.control.event;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import org.obsidianbox.magma.gui.Control;
 
 /**
  * Callback when a control is enabled or disabled.
  */
 @Cancelable
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public final class ControlEnableEvent extends ControlEvent {
     private final boolean enabled;
 

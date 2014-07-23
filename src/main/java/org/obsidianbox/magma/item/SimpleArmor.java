@@ -31,7 +31,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-import org.obsidianbox.magma.Game;
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
@@ -67,7 +66,7 @@ public class SimpleArmor extends ItemArmor {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        return Game.MOD_ID.toLowerCase() + ":textures/models/" + addon.getDescription().getIdentifier() + "/armor/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
+        return addon.getDescription().getIdentifier() + ":textures/items/armor/model/" + material.name().toLowerCase() + (this.type == ArmorType.LEGS ? "_layer_2.png" : "_layer_1.png");
     }
 
     public final Addon getAddon() {

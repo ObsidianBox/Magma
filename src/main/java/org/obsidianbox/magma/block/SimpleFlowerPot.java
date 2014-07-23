@@ -23,56 +23,29 @@
  */
 package org.obsidianbox.magma.block;
 
-import java.util.List;
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
 
-public class SimpleFlower extends BlockFlower {
+public class SimpleFlowerPot extends BlockFlowerPot {
     private final Addon addon;
     private final String identifier;
-    private IIcon icon;
+    private IIcon bottomIcon, topIcon, sideIcon;
 
-    public SimpleFlower(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
-        super(0);
+    public SimpleFlowerPot(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
         this.addon = addon;
         this.identifier = identifier;
-
         setBlockName(addon.getDescription().getIdentifier() + ".tile.block." + identifier);
-        setBlockTextureName(addon.getDescription().getIdentifier() + ":flowers/" + identifier);
+        setBlockTextureName(addon.getDescription().getIdentifier() + ":" + identifier);
         addon.getGame().getLanguages().put(addon, Languages.ENGLISH_AMERICAN, "tile.block." + identifier + ".name", displayName);
         if (showInCreativeTab) {
             setCreativeTab(addon.getGame().getTabs());
         }
         GameRegistry.registerBlock(this, addon.getDescription().getIdentifier() + "_" + identifier);
-    }
-
-    @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item, 1, 0));
-    }
-
-    @Override
-    public IIcon getIcon(int side, int type) {
-        return icon;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerBlockIcons(IIconRegister icon) {
-        this.icon = icon.registerIcon(getTextureName());
     }
 
     public final Addon getAddon() {
@@ -84,12 +57,12 @@ public class SimpleFlower extends BlockFlower {
     }
 
     @Override
-    public final String getLocalizedName() {
+    public String getLocalizedName() {
         return I18n.format(getUnlocalizedName() + ".name");
     }
 
     @Override
-    public final String getUnlocalizedName() {
+    public String getUnlocalizedName() {
         return addon.getDescription().getIdentifier() + ".tile.block." + identifier;
     }
 
@@ -98,11 +71,11 @@ public class SimpleFlower extends BlockFlower {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SimpleFlower)) {
+        if (!(o instanceof SimpleFlowerPot)) {
             return false;
         }
 
-        final SimpleFlower that = (SimpleFlower) o;
+        final SimpleFlowerPot that = (SimpleFlowerPot) o;
 
         return addon.equals(that.addon) && identifier.equals(that.identifier);
     }

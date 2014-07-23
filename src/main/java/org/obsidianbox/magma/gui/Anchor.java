@@ -26,7 +26,7 @@ package org.obsidianbox.magma.gui;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public enum Anchor {
     NONE,
     TOP_LEFT,

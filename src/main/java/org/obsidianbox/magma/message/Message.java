@@ -24,6 +24,7 @@
 package org.obsidianbox.magma.message;
 
 import io.netty.buffer.ByteBuf;
+
 import org.obsidianbox.magma.Game;
 
 /**

@@ -26,9 +26,10 @@ package org.obsidianbox.magma.gui.event;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import org.obsidianbox.magma.gui.Form;
 
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public abstract class FormEvent extends Event {
     private final Form form;
 

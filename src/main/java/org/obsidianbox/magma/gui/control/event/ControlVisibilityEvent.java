@@ -26,10 +26,11 @@ package org.obsidianbox.magma.gui.control.event;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import org.obsidianbox.magma.gui.Control;
 
 @Cancelable
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public final class ControlVisibilityEvent extends ControlEvent {
     private final boolean visible;
 

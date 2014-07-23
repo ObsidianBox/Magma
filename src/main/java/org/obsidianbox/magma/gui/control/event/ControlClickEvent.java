@@ -28,7 +28,8 @@ import java.util.Arrays;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.*;
+
 import org.obsidianbox.magma.gui.Control;
 import org.obsidianbox.magma.gui.action.ClickActions;
 
@@ -36,7 +37,7 @@ import org.obsidianbox.magma.gui.action.ClickActions;
  * Callback when a control is clicked by the user.
  */
 @Cancelable
-@SideOnly (Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public class ControlClickEvent extends ControlEvent {
     private final int x;
     private final int y;
