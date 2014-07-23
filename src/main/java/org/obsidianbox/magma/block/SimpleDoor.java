@@ -108,8 +108,8 @@ public class SimpleDoor extends BlockDoor {
         }
     }
     
-    public IIcon getIcon(IBlockAccess blockAccess, Location loc, int val1) {
-        return this.getIcon(blockAccess, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), val1);
+    public IIcon getIcon(Location loc, int val1) {
+        return this.getIcon(loc.getWorld(), (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), val1);
     }
 
     @Override
@@ -117,8 +117,8 @@ public class SimpleDoor extends BlockDoor {
         return !isPoweredOnly;
     }
     
-    public boolean onBlockActivated(World world, Location loc, EntityPlayer player, int val1, float val2, float val3, float val4) {
-        return this.onBlockActivated(world, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), player, val1, val2, val3, val4);
+    public boolean onBlockActivated(Location loc, EntityPlayer player, int val1, float val2, float val3, float val4) {
+        return this.onBlockActivated(loc.getWorld(), (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), player, val1, val2, val3, val4);
     }
 
     @Override

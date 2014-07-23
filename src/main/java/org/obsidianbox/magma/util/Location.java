@@ -25,6 +25,8 @@ package org.obsidianbox.magma.util;
 
 import java.io.Serializable;
 
+import net.minecraft.world.World;
+
 /**
  * Simple Location object
  * @author bensku
@@ -40,8 +42,10 @@ public class Location implements Serializable {
     private double x;
     private double y;
     private double z;
+    private World world;
     
-    public Location(double x, double y, double z) {
+    public Location(World world, double x, double y, double z) {
+        this.setWorld(world);
         this.setX(x);
         this.setY(y);
         this.setZ(z);
@@ -70,9 +74,17 @@ public class Location implements Serializable {
     public void setZ(double z) {
         this.z = z;
     }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
     
     @Override
     public String toString() {
-        return "Location={" + "x=" + this.getX() + ",y=" + this.getY() + ",z=" + this.getZ() + "}";
+        return "Location={" + "world=" + this.getWorld().toString() +  ",x=" + this.getX() + ",y=" + this.getY() + ",z=" + this.getZ() + "}";
     }
 }
