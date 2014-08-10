@@ -25,7 +25,6 @@ package org.obsidianbox.magma.block;
 
 import java.util.List;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.BlockCactus;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -43,7 +42,6 @@ public class SimpleCactus extends BlockCactus {
     private final String identifier;
     private IIcon iconSide, iconTop, iconBottom;
 
-
     public SimpleCactus(Addon addon, String identifier, String displayName, boolean showInCreativeTab) {
         this.addon = addon;
         this.identifier = identifier;
@@ -58,7 +56,7 @@ public class SimpleCactus extends BlockCactus {
     }
 
     @Override
-    @SuppressWarnings ( {"unchecked", "rawtypes"})
+    @SuppressWarnings ({"unchecked", "rawtypes"})
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(item, 1, 0));
     }
@@ -88,7 +86,7 @@ public class SimpleCactus extends BlockCactus {
     }
 
     public IIcon getIcon(int side, int meta) {
-        switch(side) {
+        switch (side) {
             case 0:
                 return iconBottom;
             case 1:

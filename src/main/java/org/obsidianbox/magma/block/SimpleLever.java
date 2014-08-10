@@ -25,21 +25,14 @@ package org.obsidianbox.magma.block;
 
 import java.util.List;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLever;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
@@ -66,6 +59,7 @@ public class SimpleLever extends BlockLever {
     public int getRenderType() {
         return addon.getGame().getSimpleBlockRenderer().getRenderId();
     }
+
     @Override
     @SuppressWarnings ( {"unchecked", "rawtypes"})
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
@@ -98,7 +92,7 @@ public class SimpleLever extends BlockLever {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        switch(side) {
+        switch (side) {
             case 1:
                 return iconBase;
             case 0:
