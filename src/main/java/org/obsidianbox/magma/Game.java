@@ -30,6 +30,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.obsidianbox.magma.addon.AddonManager;
+import org.obsidianbox.magma.block.renderer.SimpleBlockRenderer;
 import org.obsidianbox.magma.lang.LanguageManager;
 import org.obsidianbox.magma.message.MessagePipeline;
 import org.obsidianbox.magma.renderer.Renderer;
@@ -45,9 +46,11 @@ public final class Game {
     private MessagePipeline messagePipeline;
     private Renderer guiRenderer;
     private CreativeTabs tabs;
+    private SimpleBlockRenderer renderer;
 
     public Game(Side side) {
         this.side = side;
+        this.renderer = new SimpleBlockRenderer();
     }
 
     public Side getSide() {
@@ -128,6 +131,10 @@ public final class Game {
             throw new IllegalArgumentException("Setting a null gui renderer instance is not allowed!");
         }
         this.guiRenderer = guiRenderer;
+    }
+
+    public SimpleBlockRenderer getSimpleBlockRenderer() {
+        return renderer;
     }
 
     public CreativeTabs getTabs() {
