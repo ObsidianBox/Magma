@@ -55,7 +55,7 @@ public interface IWidget {
     /**
      * Sets the render priority for this widget. Highest priorities render first (in the background), the lowest priorities render on top (in the foreground).
      *
-     * @param priority the priority to render at.
+     * @param priority the {@link org.obsidianbox.magma.gui.RenderPriority} to render at.
      * @return the widget.
      */
     public IWidget setPriority(RenderPriority priority);
@@ -174,7 +174,7 @@ public interface IWidget {
     /**
      * Is true if this widget is visible and rendering on the screen.
      *
-     * @return the visibility.
+     * @return true if visible, false if not.
      */
     public boolean isVisible();
 
@@ -216,16 +216,16 @@ public interface IWidget {
     /**
      * Does the widget have a container.
      *
-     * @return true if it has a container, false if not.
+     * @return true if it has a {@link org.obsidianbox.magma.gui.IContainer}, false if not.
      */
     public boolean hasContainer();
 
     /**
      * Sets the parent container for this widget.
      *
-     * @param iContainer the {@link IContainer} to set as parent.
+     * @param container the {@link org.obsidianbox.magma.gui.IContainer} to set as parent.
      */
-    public void setContainer(IContainer iContainer);
+    public void setContainer(IContainer container);
 
     /**
      * Container Layout - Set whether the widget will be resized with its container.
@@ -418,7 +418,7 @@ public interface IWidget {
     /**
      * Set the anchor point for this widget, default is CENTER.
      *
-     * @param anchor the {@link Anchor} to set.
+     * @param anchor the {@link org.obsidianbox.magma.gui.Anchor} to set.
      * @return the widget.
      */
     public IWidget setAnchor(Anchor anchor);
@@ -426,7 +426,7 @@ public interface IWidget {
     /**
      * Get the current anchor position.
      *
-     * @return the current {@link Anchor} position.
+     * @return the current {@link org.obsidianbox.magma.gui.Anchor} position.
      */
     public Anchor getAnchor();
 

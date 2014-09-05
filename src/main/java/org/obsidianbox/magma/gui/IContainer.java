@@ -4,7 +4,7 @@ public interface IContainer extends IWidget {
     /**
      * Adds a single widget to a container.
      *
-     * @param child the widget to add.
+     * @param child the {@link org.obsidianbox.magma.gui.IWidget} to add.
      * @return the container.
      */
     public IContainer addChild(IWidget child);
@@ -13,7 +13,7 @@ public interface IContainer extends IWidget {
      * Adds a single widget to a container.
      *
      * @param index the position to insert it at, use -1 for append.
-     * @param child the widget to add.
+     * @param child the {@link org.obsidianbox.magma.gui.IWidget} to add.
      * @return the container.
      */
     public IContainer insertChild(int index, IWidget child);
@@ -21,7 +21,7 @@ public interface IContainer extends IWidget {
     /**
      * Adds a list of children to a container.
      *
-     * @param children the widgets to add.
+     * @param children the {@link org.obsidianbox.magma.gui.IWidget}s to add.
      * @return the container.
      */
     public IContainer addChildren(IWidget... children);
@@ -29,7 +29,7 @@ public interface IContainer extends IWidget {
     /**
      * Removes a single widget from this container.
      *
-     * @param child the widget to add.
+     * @param child the {@link org.obsidianbox.magma.gui.IWidget} to add.
      * @return the container.
      */
     public IContainer removeChild(IWidget child);
@@ -37,14 +37,14 @@ public interface IContainer extends IWidget {
     /**
      * Get a list of widgets inside this container.
      *
-     * @return the widgets in the container.
+     * @return the {@link org.obsidianbox.magma.gui.IWidget}s in the container.
      */
     public IWidget[] getChildren();
 
     /**
      * Set the automatic layout type for children, triggered by setWidth() or setHeight().
      *
-     * @param type ContainerType.VERTICAL, .HORIZONTAL or .OVERLAY.
+     * @param type the {@link org.obsidianbox.magma.gui.ContainerType}.
      * @return the container.
      */
     public IContainer setLayout(ContainerType type);
@@ -89,7 +89,7 @@ public interface IContainer extends IWidget {
     /**
      * Get the contents alignment.
      *
-     * @return the {@link Anchor}
+     * @return the {@link org.obsidianbox.magma.gui.Anchor}
      */
     public Anchor getAlign();
 

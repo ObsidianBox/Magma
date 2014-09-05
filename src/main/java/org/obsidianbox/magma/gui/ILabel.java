@@ -21,14 +21,14 @@ public interface ILabel extends IWidget {
     /**
      * Gets the color for the text.
      *
-     * @return the color of the text.
+     * @return the {@link org.obsidianbox.magma.util.Color} of the text.
      */
     public Color getTextColor();
 
     /**
      * Sets the color for the text.
      *
-     * @param color the color to set.
+     * @param color the {@link org.obsidianbox.magma.util.Color} to set.
      * @return the label.
      */
     public ILabel setTextColor(Color color);
@@ -52,14 +52,14 @@ public interface ILabel extends IWidget {
     /**
      * Gets the current anchor.
      *
-     * @return the current anchor.
+     * @return the current {@link org.obsidianbox.magma.gui.Anchor}.
      */
     public Anchor getAlign();
 
     /**
      * SEts the current anchor.
      *
-     * @param anchor the anchor to set.
+     * @param anchor the {@link org.obsidianbox.magma.gui.Anchor} to set.
      * @return the label.
      */
     public ILabel setAlign(Anchor anchor);

@@ -28,7 +28,7 @@ public interface IButton extends IControl, ILabel {
     /**
      * Sets the color of the control while the mouse is hovering over it.
      *
-     * @param color the hover color to use.
+     * @param color the hover {@link org.obsidianbox.magma.util.Color} to use.
      * @return the button.
      */
     public IButton setHoverColor(Color color);
@@ -44,7 +44,7 @@ public interface IButton extends IControl, ILabel {
     /**
      * Sets the text color to use.
      *
-     * @param color the color to set.
+     * @param color the {@link org.obsidianbox.magma.util.Color} to set.
      * @return the button.
      */
     public IButton setTextColor(Color color);
@@ -60,7 +60,7 @@ public interface IButton extends IControl, ILabel {
     /**
      * Sets the alignment of the button.
      *
-     * @param align the alignment.
+     * @param align the {@link org.obsidianbox.magma.gui.Anchor} alignment.
      * @return the button.
      */
     public IButton setAlign(Anchor align);

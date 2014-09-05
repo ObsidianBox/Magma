@@ -30,7 +30,7 @@ public interface IControl extends IWidget {
     /**
      * Sets the color of this control.
      *
-     * @param color the color to set.
+     * @param color the {@link org.obsidianbox.magma.util.Color} to set.
      * @return the control.
      */
     public IControl setColor(Color color);
@@ -45,7 +45,7 @@ public interface IControl extends IWidget {
     /**
      * Sets the color of this control when it is disabled.
      *
-     * @param color the color to set.
+     * @param color the disabled {@link org.obsidianbox.magma.util.Color} to set.
      * @return the control.
      */
     public IControl setDisabledColor(Color color);
@@ -53,7 +53,7 @@ public interface IControl extends IWidget {
     /**
      * Gets the focused status of the control.
      *
-     * @return true if contorl has focus, false if not.
+     * @return true if control has focus, false if not.
      */
     public boolean isFocus();
 
