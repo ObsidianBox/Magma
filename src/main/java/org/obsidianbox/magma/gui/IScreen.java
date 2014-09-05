@@ -1,17 +1,15 @@
-package org.obsidianbox.magma.gui.screen;
+package org.obsidianbox.magma.gui;
 
 import java.util.Set;
 import java.util.UUID;
 
-import org.obsidianbox.magma.gui.widget.Widget;
-
-public interface Screen extends Widget {
+public interface IScreen extends IWidget {
     /**
      * Gets an array of all the attached widgets to this screen. Modifying this array will not affect the screen.
      *
      * @return array of all widgets.
      */
-    public Widget[] getAttachedWidgets();
+    public IWidget[] getAttachedWidgets();
 
     /**
      * Gets an array of all the attached widgets to this screen, and if recursive, any widgets of screens attached to this screen.
@@ -19,14 +17,14 @@ public interface Screen extends Widget {
      * @param recursive whether to get widgets attached to screens attached to this screen.
      * @return array of all widgets.
      */
-    public Widget[] getAttachedWidgets(boolean recursive);
+    public IWidget[] getAttachedWidgets(boolean recursive);
 
     /**
      * Gets a set of all the attached widgets to this screen. Modifying this array will not affect the screen.
      *
      * @return set of all widgets.
      */
-    public Set<Widget> getAttachedWidgetsAsSet();
+    public Set<IWidget> getAttachedWidgetsAsSet();
 
     /**
      * Gets a set of all the attached widgets to this screen, and if recursive, any widgets of screens attached to this screen.
@@ -34,41 +32,41 @@ public interface Screen extends Widget {
      * @param recursive whether to get widgets attached to screens attached to this screen.
      * @return set of all widgets.
      */
-    public Set<Widget> getAttachedWidgetsAsSet(boolean recursive);
+    public Set<IWidget> getAttachedWidgetsAsSet(boolean recursive);
 
     /**
      * Attaches a widget to this screen.
      *
-     * @param widget the widget to attach.
+     * @param iWidget the widget to attach.
      * @param plugin the plugin that created this widget.
      * @return the screen.
      */
-    public Screen attachWidget(String plugin, Widget widget);
+    public IScreen attachWidget(String plugin, IWidget iWidget);
 
     /**
      * Attaches an array of widgets to this screen.
      *
      * @param plugin the plugin that created this widget.
-     * @param widgets the widgets to attach.
+     * @param iWidgets the widgets to attach.
      * @return the screen.
      */
-    public Screen attachWidgets(String plugin, Widget... widgets);
+    public IScreen attachWidgets(String plugin, IWidget... iWidgets);
 
     /**
      * Removes a widget from this screen.
      *
-     * @param widget the widget to remove.
+     * @param iWidget the widget to remove.
      * @return the screen.
      */
-    public Screen removeWidget(Widget widget);
+    public IScreen removeWidget(IWidget iWidget);
 
     /**
      * Is true if the screen has the given widget attached to it. Uses a linear search, takes O(n) time to complete.
      *
-     * @param widget the widget to search for.
+     * @param iWidget the widget to search for.
      * @return true if the widget was found, false if not.
      */
-    public boolean containsWidget(Widget widget);
+    public boolean containsWidget(IWidget iWidget);
 
     /**
      * Is true if the screen has a widget with the given id attached to it. Uses a linear search, takes O(n) time to complete.
@@ -84,7 +82,7 @@ public interface Screen extends Widget {
      * @param id the id to search for.
      * @return widget if found, null if not.
      */
-    public Widget getWidget(UUID id);
+    public IWidget getWidget(UUID id);
 
     /**
      * Gets the height of the screen.

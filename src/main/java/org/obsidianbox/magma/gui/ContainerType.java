@@ -1,4 +1,4 @@
-package org.obsidianbox.magma.gui.container;
+package org.obsidianbox.magma.gui;
 
 public enum ContainerType {
     HORIZONTAL,

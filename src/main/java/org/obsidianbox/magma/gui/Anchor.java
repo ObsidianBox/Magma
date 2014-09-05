@@ -1,4 +1,4 @@
-package org.obsidianbox.magma.gui.widget;
+package org.obsidianbox.magma.gui;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package org.obsidianbox.magma.gui.widget;
+package org.obsidianbox.magma.gui;
 
 import java.awt.Rectangle;
 import java.io.IOException;
@@ -7,11 +7,7 @@ import java.util.UUID;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IChatComponent;
 
-import org.obsidianbox.magma.gui.RenderPriority;
-import org.obsidianbox.magma.gui.container.Container;
-import org.obsidianbox.magma.gui.screen.Screen;
-
-public interface Widget {
+public interface IWidget {
     /**
      * The type of widget this is. Required for proper synchronization between the server and client.
      *
@@ -62,7 +58,7 @@ public interface Widget {
      * @param priority the priority to render at.
      * @return the widget.
      */
-    public Widget setPriority(RenderPriority priority);
+    public IWidget setPriority(RenderPriority priority);
 
     /**
      * Gets the actual unscaled width of this widget, in pixels.
@@ -84,7 +80,7 @@ public interface Widget {
      * @param width the width to set.
      * @return the widget.
      */
-    public Widget setWidth(int width);
+    public IWidget setWidth(int width);
 
     /**
      * Gets the actual unscaled height of this widget, in pixels.
@@ -106,14 +102,14 @@ public interface Widget {
      * @param height the height to set.
      * @return the widget.
      */
-    public Widget setHeight(int height);
+    public IWidget setHeight(int height);
 
     /**
      * Gets the screen this widget is attached to, or null if unattached.
      *
      * @return the screen.
      */
-    public Screen getScreen();
+    public IScreen getScreen();
 
     /**
      * Gets the x-coordinate of this widget. Widgets (and screens) render from the top left corner the screen. 0,0 represents the top left corner.
@@ -149,7 +145,7 @@ public interface Widget {
      * @param pos the position to set.
      * @return the widget.
      */
-    public Widget setX(int pos);
+    public IWidget setX(int pos);
 
     /**
      * Sets the y-coordinate of this widget. Widgets (and screens) render from the top left corner the screen. 0,0 represents the top left corner.
@@ -157,7 +153,7 @@ public interface Widget {
      * @param pos the position to set.
      * @return the widget.
      */
-    public Widget setY(int pos);
+    public IWidget setY(int pos);
 
     /**
      * Shifts this widget the given number of pixels in the x direction.
@@ -165,7 +161,7 @@ public interface Widget {
      * @param x the x-coordinate pixels to shift.
      * @return the widget.
      */
-    public Widget shiftXPos(int x);
+    public IWidget shiftXPos(int x);
 
     /**
      * Shifts this widget the given number of pixels in the y direction.
@@ -173,7 +169,7 @@ public interface Widget {
      * @param y the y-coordinate pixels to shift.
      * @return the widget.
      */
-    public Widget shiftYPos(int y);
+    public IWidget shiftYPos(int y);
 
     /**
      * Is true if this widget is visible and rendering on the screen.
@@ -188,7 +184,7 @@ public interface Widget {
      * @param enable enables or disables the visibility.
      * @return the widget.
      */
-    public Widget setVisible(boolean enable);
+    public IWidget setVisible(boolean enable);
 
     /**
      * Called each tick this widget is updated. This widget is processed for isDirty() immediately afterwords.
@@ -201,7 +197,7 @@ public interface Widget {
      * @param component the {@link net.minecraft.util.IChatComponent} to set the tooltip text.
      * @return the widget.
      */
-    public Widget setTooltip(IChatComponent component);
+    public IWidget setTooltip(IChatComponent component);
 
     /**
      * Gets the widget's tooltip.
@@ -213,9 +209,9 @@ public interface Widget {
     /**
      * Gets the widget's container.
      *
-     * @return the {@link org.obsidianbox.magma.gui.container.Container}
+     * @return the {@link IContainer}
      */
-    public Container getContainer();
+    public IContainer getContainer();
 
     /**
      * Does the widget have a container.
@@ -227,9 +223,9 @@ public interface Widget {
     /**
      * Sets the parent container for this widget.
      *
-     * @param container the {@link Container} to set as parent.
+     * @param iContainer the {@link IContainer} to set as parent.
      */
-    public void setContainer(Container container);
+    public void setContainer(IContainer iContainer);
 
     /**
      * Container Layout - Set whether the widget will be resized with its container.
@@ -237,7 +233,7 @@ public interface Widget {
      * @param fixed set if it is a static size.
      * @return the widget.
      */
-    public Widget setFixed(boolean fixed);
+    public IWidget setFixed(boolean fixed);
 
     /**
      * Container Layout - Whether the widget is fixed size inside its container.
@@ -253,7 +249,7 @@ public interface Widget {
      * @param marginAll the margin to set.
      * @return the widget.
      */
-    public Widget setMargin(int marginAll);
+    public IWidget setMargin(int marginAll);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -262,7 +258,7 @@ public interface Widget {
      * @param marginLeftRight the left margin.
      * @return the widget.
      */
-    public Widget setMargin(int marginTopBottom, int marginLeftRight);
+    public IWidget setMargin(int marginTopBottom, int marginLeftRight);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -272,7 +268,7 @@ public interface Widget {
      * @param marginBottom the bottom margin.
      * @return the widget.
      */
-    public Widget setMargin(int marginTop, int marginLeftRight, int marginBottom);
+    public IWidget setMargin(int marginTop, int marginLeftRight, int marginBottom);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -283,7 +279,7 @@ public interface Widget {
      * @param marginLeft the left margin.
      * @return the widget.
      */
-    public Widget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft);
+    public IWidget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -291,7 +287,7 @@ public interface Widget {
      * @param marginTop the top margin.
      * @return the widget.
      */
-    public Widget setMarginTop(int marginTop);
+    public IWidget setMarginTop(int marginTop);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -299,7 +295,7 @@ public interface Widget {
      * @param marginRight the right margin.
      * @return the widget.
      */
-    public Widget setMarginRight(int marginRight);
+    public IWidget setMarginRight(int marginRight);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -307,7 +303,7 @@ public interface Widget {
      * @param marginBottom the bottom margin.
      * @return the widget.
      */
-    public Widget setMarginBottom(int marginBottom);
+    public IWidget setMarginBottom(int marginBottom);
 
     /**
      * Container Layout - Padding to use for automatic container layout - not included in dimensions.
@@ -315,7 +311,7 @@ public interface Widget {
      * @param marginLeft the left margin.
      * @return the widget.
      */
-    public Widget setMarginLeft(int marginLeft);
+    public IWidget setMarginLeft(int marginLeft);
 
     /**
      * Container Layout - Get the margin used for container layout.
@@ -351,7 +347,7 @@ public interface Widget {
      * @param min the minimum width to allow.
      * @return the widget.
      */
-    public Widget setMinWidth(int min);
+    public IWidget setMinWidth(int min);
 
     /**
      * Container Layout - Get the minimum width for this widget.
@@ -366,7 +362,7 @@ public interface Widget {
      * @param max the maximum width to allow.
      * @return the widget.
      */
-    public Widget setMaxWidth(int max);
+    public IWidget setMaxWidth(int max);
 
     /**
      * Container Layout - Get the maximum width for this widget.
@@ -381,7 +377,7 @@ public interface Widget {
      * @param min the minimum height to allow.
      * @return the widget.
      */
-    public Widget setMinHeight(int min);
+    public IWidget setMinHeight(int min);
 
     /**
      * Container Layout - Get the minimum height for this widget.
@@ -396,7 +392,7 @@ public interface Widget {
      * @param max the maximum height to allow.
      * @return the widget.
      */
-    public Widget setMaxHeight(int max);
+    public IWidget setMaxHeight(int max);
 
     /**
      * Container Layout - Get the maximum height for this widget.
@@ -410,14 +406,14 @@ public interface Widget {
      *
      * @return the widget.
      */
-    public Widget savePosition();
+    public IWidget savePosition();
 
     /**
      * Container Layout - Restore the earlier saved position.
      *
      * @return the widget.
      */
-    public Widget restorePosition();
+    public IWidget restorePosition();
 
     /**
      * Set the anchor point for this widget, default is CENTER.
@@ -425,7 +421,7 @@ public interface Widget {
      * @param anchor the {@link Anchor} to set.
      * @return the widget.
      */
-    public Widget setAnchor(Anchor anchor);
+    public IWidget setAnchor(Anchor anchor);
 
     /**
      * Get the current anchor position.
@@ -443,7 +439,7 @@ public interface Widget {
      *
      * @return a clone of this widget.
      */
-    public Widget clone();
+    public IWidget clone();
 
     /**
      * Gets the unscaled x-coordinate.
@@ -472,7 +468,7 @@ public interface Widget {
      * @param rect the new {@link java.awt.Rectangle} of the widget.
      * @return the widget.
      */
-    public Widget setBounds(Rectangle rect);
+    public IWidget setBounds(Rectangle rect);
 
     /**
      * Sets the widgets coordinates and size.
@@ -483,6 +479,6 @@ public interface Widget {
      * @param height the height.
      * @return the widget.
      */
-    public Widget setBounds(int x, int y, int width, int height);
+    public IWidget setBounds(int x, int y, int width, int height);
 }
 

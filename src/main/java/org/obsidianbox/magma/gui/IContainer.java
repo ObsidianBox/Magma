@@ -1,16 +1,13 @@
-package org.obsidianbox.magma.gui.container;
+package org.obsidianbox.magma.gui;
 
-import org.obsidianbox.magma.gui.widget.Anchor;
-import org.obsidianbox.magma.gui.widget.Widget;
-
-public interface Container extends Widget {
+public interface IContainer extends IWidget {
     /**
      * Adds a single widget to a container.
      *
      * @param child the widget to add.
      * @return the container.
      */
-    public Container addChild(Widget child);
+    public IContainer addChild(IWidget child);
 
     /**
      * Adds a single widget to a container.
@@ -19,7 +16,7 @@ public interface Container extends Widget {
      * @param child the widget to add.
      * @return the container.
      */
-    public Container insertChild(int index, Widget child);
+    public IContainer insertChild(int index, IWidget child);
 
     /**
      * Adds a list of children to a container.
@@ -27,7 +24,7 @@ public interface Container extends Widget {
      * @param children the widgets to add.
      * @return the container.
      */
-    public Container addChildren(Widget... children);
+    public IContainer addChildren(IWidget... children);
 
     /**
      * Removes a single widget from this container.
@@ -35,14 +32,14 @@ public interface Container extends Widget {
      * @param child the widget to add.
      * @return the container.
      */
-    public Container removeChild(Widget child);
+    public IContainer removeChild(IWidget child);
 
     /**
      * Get a list of widgets inside this container.
      *
      * @return the widgets in the container.
      */
-    public Widget[] getChildren();
+    public IWidget[] getChildren();
 
     /**
      * Set the automatic layout type for children, triggered by setWidth() or setHeight().
@@ -50,7 +47,7 @@ public interface Container extends Widget {
      * @param type ContainerType.VERTICAL, .HORIZONTAL or .OVERLAY.
      * @return the container.
      */
-    public Container setLayout(ContainerType type);
+    public IContainer setLayout(ContainerType type);
 
     /**
      * Get the automatic layout type for children.
@@ -69,7 +66,7 @@ public interface Container extends Widget {
      *
      * @return the container.
      */
-    public Container updateLayout();
+    public IContainer updateLayout();
 
     /**
      * <p>Automatically call updateLayout during the next onTick().
@@ -80,19 +77,19 @@ public interface Container extends Widget {
      *
      * @return the container.
      */
-    public Container deferLayout();
+    public IContainer deferLayout();
 
     /**
      * Set the contents alignment.
      *
      * @return the container.
      */
-    public Container setAlign(Anchor anchor);
+    public IContainer setAlign(Anchor anchor);
 
     /**
      * Get the contents alignment.
      *
-     * @return the {@link org.obsidianbox.magma.gui.widget.Anchor}
+     * @return the {@link Anchor}
      */
     public Anchor getAlign();
 
@@ -102,7 +99,7 @@ public interface Container extends Widget {
      * @param reverse set to the reverse direction.
      * @return the container.
      */
-    public Container setReverse(boolean reverse);
+    public IContainer setReverse(boolean reverse);
 
     /**
      * If this is drawing in reverse order.
@@ -117,7 +114,7 @@ public interface Container extends Widget {
      * @param auto set to auto.
      * @return the container.
      */
-    public Container setAuto(boolean auto);
+    public IContainer setAuto(boolean auto);
 
     /**
      * True if the children will expand to fill width and height.
