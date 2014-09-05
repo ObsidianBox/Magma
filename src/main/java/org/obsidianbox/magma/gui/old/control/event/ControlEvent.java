@@ -21,21 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui;
+package org.obsidianbox.magma.gui.old.control.event;
 
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import org.obsidianbox.magma.gui.old.Control;
+
 @SideOnly(Side.CLIENT)
-public enum Anchor {
-    NONE,
-    TOP_LEFT,
-    TOP_CENTER,
-    TOP_RIGHT,
-    CENTER_LEFT,
-    CENTER_CENTER,
-    CENTER_RIGHT,
-    BOTTOM_LEFT,
-    BOTTOM_CENTER,
-    BOTTOM_RIGHT
+public abstract class ControlEvent extends Event {
+    private final Control control;
+
+    public ControlEvent(Control control) {
+        this.control = control;
+    }
+
+    public Control getControl() {
+        return control;
+    }
+
+    @Override
+    public int hashCode() {
+        return control.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ControlEvent)) {
+            return false;
+        }
+
+        final ControlEvent that = (ControlEvent) o;
+
+        return control.equals(that.control);
+    }
 }

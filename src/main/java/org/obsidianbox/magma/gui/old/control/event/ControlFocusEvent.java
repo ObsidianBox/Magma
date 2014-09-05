@@ -21,35 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control.event;
+package org.obsidianbox.magma.gui.old.control.event;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import org.obsidianbox.magma.gui.Control;
+import org.obsidianbox.magma.gui.old.Control;
+import org.obsidianbox.magma.gui.old.action.FocusActions;
 
-/**
- * Callback when a control is enabled or disabled.
- */
 @Cancelable
 @SideOnly(Side.CLIENT)
-public final class ControlEnableEvent extends ControlEvent {
-    private final boolean enabled;
+public final class ControlFocusEvent extends ControlEvent {
+    private final FocusActions action;
 
-    public ControlEnableEvent(Control control, boolean enabled) {
+    public ControlFocusEvent(Control control, FocusActions action) {
         super(control);
-        this.enabled = enabled;
+        this.action = action;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public FocusActions getAction() {
+        return action;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (enabled ? 1 : 0);
+        result = 31 * result + action.hashCode();
         return result;
     }
 
@@ -65,16 +63,16 @@ public final class ControlEnableEvent extends ControlEvent {
             return false;
         }
 
-        final ControlEnableEvent that = (ControlEnableEvent) o;
+        final ControlFocusEvent that = (ControlFocusEvent) o;
 
-        return enabled == that.enabled;
+        return action == that.action;
     }
 
     @Override
     public String toString() {
-        return "ControlEnableEvent{" +
+        return "ControlFocusedEvent{" +
                 getControl() +
-                ", enabled=" + enabled +
+                ", action=" + action +
                 '}';
     }
 }

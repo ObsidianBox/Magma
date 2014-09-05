@@ -21,33 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control.event;
+package org.obsidianbox.magma.gui.old.control.event;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import org.obsidianbox.magma.gui.Control;
-import org.obsidianbox.magma.gui.action.FocusActions;
+import org.obsidianbox.magma.gui.old.Control;
 
 @Cancelable
 @SideOnly(Side.CLIENT)
-public final class ControlFocusEvent extends ControlEvent {
-    private final FocusActions action;
+public final class ControlVisibilityEvent extends ControlEvent {
+    private final boolean visible;
 
-    public ControlFocusEvent(Control control, FocusActions action) {
+    public ControlVisibilityEvent(Control control, boolean visible) {
         super(control);
-        this.action = action;
+        this.visible = visible;
     }
 
-    public FocusActions getAction() {
-        return action;
+    public boolean isVisible() {
+        return visible;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + action.hashCode();
+        result = 31 * result + (visible ? 1 : 0);
         return result;
     }
 
@@ -63,16 +62,16 @@ public final class ControlFocusEvent extends ControlEvent {
             return false;
         }
 
-        final ControlFocusEvent that = (ControlFocusEvent) o;
+        final ControlVisibilityEvent that = (ControlVisibilityEvent) o;
 
-        return action == that.action;
+        return visible == that.visible;
     }
 
     @Override
     public String toString() {
-        return "ControlFocusedEvent{" +
+        return "ControlVisibilityActionEvent{" +
                 getControl() +
-                ", action=" + action +
+                ", visible=" + visible +
                 '}';
     }
 }

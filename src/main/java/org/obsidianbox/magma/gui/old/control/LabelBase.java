@@ -21,9 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.action;
+package org.obsidianbox.magma.gui.old.control;
 
-public enum HoverActions {
-    BEGIN,
-    END
+import java.awt.Font;
+
+import org.obsidianbox.magma.gui.old.Control;
+import org.obsidianbox.magma.gui.old.Form;
+
+public abstract class LabelBase extends Control {
+    private String text;
+    private Font font;
+
+    public LabelBase(Form form, String name, int x, int y, String text, Font font) {
+        super(form, name, x, y);
+        setText(text);
+        setFont(font);
+    }
+
+    protected LabelBase(Form form, String name, int x, int y, int width, int height, String text, Font font) {
+        super(form, name, x, y, width, height);
+        setText(text);
+        setFont(font);
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public LabelBase setText(String text) {
+        this.text = text;
+        return this;
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    public LabelBase setFont(Font font) {
+        this.font = font;
+        return this;
+    }
 }

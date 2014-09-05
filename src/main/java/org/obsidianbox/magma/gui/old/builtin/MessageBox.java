@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.builtin;
+package org.obsidianbox.magma.gui.old.builtin;
 
 import org.obsidianbox.magma.addon.Addon;
-import org.obsidianbox.magma.gui.Control;
-import org.obsidianbox.magma.gui.Form;
+import org.obsidianbox.magma.gui.old.Control;
+import org.obsidianbox.magma.gui.old.Form;
 
 /**
  * Represents a typical confirmation dialog that gives feedback and asks for some in return
@@ -120,7 +120,7 @@ public class MessageBox extends Form {
     /**
      * Sets the {@link MessageBox}'s caller <p> If no caller is set then the top form will be focused on when {@link MessageBox} is closed.
      *
-     * @param caller The {@link org.obsidianbox.magma.gui.Form} that this {@link MessageBox} will focus to when closed
+     * @param caller The {@link org.obsidianbox.magma.gui.old.Form} that this {@link MessageBox} will focus to when closed
      */
     public MessageBox setCaller(Form caller) {
         this.caller = caller;

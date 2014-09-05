@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control.event;
+package org.obsidianbox.magma.gui.old.control.event;
 
 import java.util.Arrays;
 
@@ -30,25 +30,22 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import org.lwjgl.input.*;
 
-import org.obsidianbox.magma.gui.Control;
-import org.obsidianbox.magma.gui.action.ClickActions;
+import org.obsidianbox.magma.gui.old.Control;
+import org.obsidianbox.magma.gui.old.action.HoverActions;
 
-/**
- * Callback when a control is clicked by the user.
- */
 @Cancelable
 @SideOnly(Side.CLIENT)
-public class ControlClickEvent extends ControlEvent {
+public class ControlHoverEvent extends ControlEvent {
     private final int x;
     private final int y;
-    private final ClickActions type;
+    private final HoverActions action;
     private final Keyboard[] keys;
 
-    public ControlClickEvent(Control control, int x, int y, ClickActions type, Keyboard... keys) {
+    public ControlHoverEvent(Control control, int x, int y, HoverActions action, Keyboard... keys) {
         super(control);
         this.x = x;
         this.y = y;
-        this.type = type;
+        this.action = action;
         this.keys = keys;
     }
 
@@ -60,8 +57,8 @@ public class ControlClickEvent extends ControlEvent {
         return y;
     }
 
-    public ClickActions getType() {
-        return type;
+    public HoverActions getAction() {
+        return action;
     }
 
     public Keyboard[] getKeys() {
@@ -73,7 +70,7 @@ public class ControlClickEvent extends ControlEvent {
         int result = super.hashCode();
         result = 31 * result + x;
         result = 31 * result + y;
-        result = 31 * result + type.hashCode();
+        result = 31 * result + action.hashCode();
         result = 31 * result + Arrays.hashCode(keys);
         return result;
     }
@@ -83,25 +80,25 @@ public class ControlClickEvent extends ControlEvent {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ControlClickEvent)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         if (!super.equals(o)) {
             return false;
         }
 
-        final ControlClickEvent that = (ControlClickEvent) o;
+        final ControlHoverEvent that = (ControlHoverEvent) o;
 
-        return x == that.x && y == that.y && Arrays.equals(keys, that.keys) && type == that.type;
+        return x == that.x && y == that.y && Arrays.equals(keys, that.keys) && action == that.action;
     }
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + " {" +
-                "control= " + getControl() +
+        return "ControlHoveredEvent{" +
+                getControl() +
                 ", x=" + x +
                 ", y=" + y +
-                ", type=" + type +
+                ", action=" + action +
                 ", keys=" + Arrays.toString(keys) +
                 '}';
     }

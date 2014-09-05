@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control;
+package org.obsidianbox.magma.gui.old.control;
 
 import java.awt.Font;
 import java.util.LinkedList;
@@ -33,7 +33,7 @@ import org.spout.renderer.api.model.StringModel;
 
 import com.flowpowered.math.vector.Vector2f;
 
-import org.obsidianbox.magma.gui.Form;
+import org.obsidianbox.magma.gui.old.Form;
 import org.obsidianbox.magma.renderer.Colors;
 
 public class Button extends LabelBase {

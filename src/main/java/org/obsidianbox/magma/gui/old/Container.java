@@ -21,44 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control;
+package org.obsidianbox.magma.gui.old;
 
-import java.awt.Font;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
-import org.obsidianbox.magma.gui.Control;
-import org.obsidianbox.magma.gui.Form;
+import org.spout.renderer.api.model.Model;
 
-public abstract class LabelBase extends Control {
-    private String text;
-    private Font font;
+public class Container extends Control {
+    private final List<Model> models = new LinkedList<>();
+    private final Set<Control> controls = new LinkedHashSet<>();
 
-    public LabelBase(Form form, String name, int x, int y, String text, Font font) {
-        super(form, name, x, y);
-        setText(text);
-        setFont(font);
+    protected Container(Form form, int x, int y, int width, int height) {
+        this(form, form.getName() + "_container_root", x, y, width, height);
     }
 
-    protected LabelBase(Form form, String name, int x, int y, int width, int height, String text, Font font) {
+    public Container(Form form, String name, int x, int y, int width, int height) {
         super(form, name, x, y, width, height);
-        setText(text);
-        setFont(font);
     }
 
-    public String getText() {
-        return text;
+    @Override
+    public List<Model> getModels() {
+        return models;
     }
 
-    public LabelBase setText(String text) {
-        this.text = text;
-        return this;
+    public boolean add(Control control) {
+        if (!(control instanceof Container) && control.getContainer() != null) {
+            return false;
+        }
+
+        if (!controls.add(control)) {
+            return false;
+        }
+
+        models.addAll(control.getModels());
+        control.setContainer(this);
+        return true;
     }
 
-    public Font getFont() {
-        return font;
-    }
-
-    public LabelBase setFont(Font font) {
-        this.font = font;
-        return this;
+    public Set<Control> getAll() {
+        return Collections.unmodifiableSet(controls);
     }
 }

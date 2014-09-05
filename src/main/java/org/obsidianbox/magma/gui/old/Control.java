@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui;
+package org.obsidianbox.magma.gui.old;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,11 +30,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import org.spout.renderer.api.model.Model;
 
-import org.obsidianbox.magma.gui.control.event.ControlClickEvent;
-import org.obsidianbox.magma.gui.control.event.ControlEnableEvent;
-import org.obsidianbox.magma.gui.control.event.ControlFocusEvent;
-import org.obsidianbox.magma.gui.control.event.ControlHoverEvent;
-import org.obsidianbox.magma.gui.control.event.ControlVisibilityEvent;
+import org.obsidianbox.magma.gui.old.control.event.ControlClickEvent;
+import org.obsidianbox.magma.gui.old.control.event.ControlEnableEvent;
+import org.obsidianbox.magma.gui.old.control.event.ControlFocusEvent;
+import org.obsidianbox.magma.gui.old.control.event.ControlHoverEvent;
+import org.obsidianbox.magma.gui.old.control.event.ControlVisibilityEvent;
 
 @SideOnly(Side.CLIENT)
 public abstract class Control {
@@ -144,7 +144,7 @@ public abstract class Control {
     public abstract List<Model> getModels();
 
     /**
-     * Callback received when {@link org.obsidianbox.magma.gui.control.event.ControlClickEvent} is fired and not cancelled.
+     * Callback received when {@link org.obsidianbox.magma.gui.old.control.event.ControlClickEvent} is fired and not cancelled.
      *
      * @param event The event that was fired
      */
@@ -153,7 +153,7 @@ public abstract class Control {
     }
 
     /**
-     * Callback received when {@link org.obsidianbox.magma.gui.control.event.ControlEnableEvent} is fired and not cancelled.
+     * Callback received when {@link org.obsidianbox.magma.gui.old.control.event.ControlEnableEvent} is fired and not cancelled.
      *
      * @param event The event that was fired
      */
@@ -162,7 +162,7 @@ public abstract class Control {
     }
 
     /**
-     * Callback received when {@link org.obsidianbox.magma.gui.control.event.ControlFocusEvent} is fired and not cancelled.
+     * Callback received when {@link org.obsidianbox.magma.gui.old.control.event.ControlFocusEvent} is fired and not cancelled.
      *
      * @param event The event that was fired
      */
@@ -171,7 +171,7 @@ public abstract class Control {
     }
 
     /**
-     * Callback received when {@link org.obsidianbox.magma.gui.control.event.ControlHoverEvent} is fired and not cancelled.
+     * Callback received when {@link org.obsidianbox.magma.gui.old.control.event.ControlHoverEvent} is fired and not cancelled.
      *
      * @param event The event that was fired
      */
@@ -180,7 +180,7 @@ public abstract class Control {
     }
 
     /**
-     * Callback received when {@link org.obsidianbox.magma.gui.control.event.ControlVisibilityEvent} is fired and not cancelled.
+     * Callback received when {@link org.obsidianbox.magma.gui.old.control.event.ControlVisibilityEvent} is fired and not cancelled.
      *
      * @param event The event that was fired
      */

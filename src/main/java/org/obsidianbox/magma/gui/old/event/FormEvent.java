@@ -21,60 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui;
+package org.obsidianbox.magma.gui.old.event;
 
-import java.util.UUID;
-
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Contains all {@link Form}s on the GUI and handles transferring focus status to the correct form.
- */
+import org.obsidianbox.magma.gui.old.Form;
+
 @SideOnly(Side.CLIENT)
-public interface Stack {
-    /**
-     * Adds the {@link Form} to the stack for showing to the user
-     *
-     * @param form Form to be added
-     */
-    public void show(Form form);
+public abstract class FormEvent extends Event {
+    private final Form form;
 
-    /**
-     * Hides the {@link Form}. The form will retain its state and all assets will remain on the GPU.
-     *
-     * @param form The form to hide
-     */
-    public void hide(Form form);
+    public FormEvent(Form form) {
+        this.form = form;
+    }
 
-    /**
-     * @param formName The name of the form to hide
-     * @see #hide(Form)
-     */
-    public void hide(String formName);
+    public Form getForm() {
+        return form;
+    }
 
-    /**
-     * @param uuid The uuid of the form to hide
-     * @see #hide(Form)
-     */
-    public void hide(UUID uuid);
+    @Override
+    public int hashCode() {
+        return form.hashCode();
+    }
 
-    /**
-     * Closes the {@link Form}. The state of the form will return to defaults and all assets disposed of from the GPU.
-     *
-     * @param form The form to close
-     */
-    public void close(Form form);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FormEvent)) {
+            return false;
+        }
 
-    /**
-     * @param formName The name of the form to close
-     * @see #close(Form)
-     */
-    public void close(String formName);
+        final FormEvent that = (FormEvent) o;
 
-    /**
-     * @param uuid The uuid of the form to close
-     * @see #close(Form)
-     */
-    public void close(UUID uuid);
+        return form.equals(that.form);
+    }
 }

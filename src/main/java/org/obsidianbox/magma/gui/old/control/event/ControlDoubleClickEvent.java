@@ -21,42 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.event;
+package org.obsidianbox.magma.gui.old.control.event;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import org.lwjgl.input.*;
 
-import org.obsidianbox.magma.gui.Form;
+import org.obsidianbox.magma.gui.old.Control;
+import org.obsidianbox.magma.gui.old.action.ClickActions;
 
+/**
+ * Callback when a control is double clicked by the user.
+ */
+@Cancelable
 @SideOnly(Side.CLIENT)
-public abstract class FormEvent extends Event {
-    private final Form form;
-
-    public FormEvent(Form form) {
-        this.form = form;
-    }
-
-    public Form getForm() {
-        return form;
-    }
-
-    @Override
-    public int hashCode() {
-        return form.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof FormEvent)) {
-            return false;
-        }
-
-        final FormEvent that = (FormEvent) o;
-
-        return form.equals(that.form);
+public final class ControlDoubleClickEvent extends ControlClickEvent {
+    public ControlDoubleClickEvent(Control control, int x, int y, ClickActions type, Keyboard... keys) {
+        super(control, x, y, type, keys);
     }
 }

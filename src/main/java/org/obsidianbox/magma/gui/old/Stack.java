@@ -21,42 +21,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control.event;
+package org.obsidianbox.magma.gui.old;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import java.util.UUID;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import org.obsidianbox.magma.gui.Control;
-
+/**
+ * Contains all {@link Form}s on the GUI and handles transferring focus status to the correct form.
+ */
 @SideOnly(Side.CLIENT)
-public abstract class ControlEvent extends Event {
-    private final Control control;
+public interface Stack {
+    /**
+     * Adds the {@link Form} to the stack for showing to the user
+     *
+     * @param form Form to be added
+     */
+    public void show(Form form);
 
-    public ControlEvent(Control control) {
-        this.control = control;
-    }
+    /**
+     * Hides the {@link Form}. The form will retain its state and all assets will remain on the GPU.
+     *
+     * @param form The form to hide
+     */
+    public void hide(Form form);
 
-    public Control getControl() {
-        return control;
-    }
+    /**
+     * @param formName The name of the form to hide
+     * @see #hide(Form)
+     */
+    public void hide(String formName);
 
-    @Override
-    public int hashCode() {
-        return control.hashCode();
-    }
+    /**
+     * @param uuid The uuid of the form to hide
+     * @see #hide(Form)
+     */
+    public void hide(UUID uuid);
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ControlEvent)) {
-            return false;
-        }
+    /**
+     * Closes the {@link Form}. The state of the form will return to defaults and all assets disposed of from the GPU.
+     *
+     * @param form The form to close
+     */
+    public void close(Form form);
 
-        final ControlEvent that = (ControlEvent) o;
+    /**
+     * @param formName The name of the form to close
+     * @see #close(Form)
+     */
+    public void close(String formName);
 
-        return control.equals(that.control);
-    }
+    /**
+     * @param uuid The uuid of the form to close
+     * @see #close(Form)
+     */
+    public void close(UUID uuid);
 }

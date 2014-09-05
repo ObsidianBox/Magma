@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control;
+package org.obsidianbox.magma.gui.old.control;
 
 import java.awt.Font;
 import java.util.LinkedList;
@@ -30,7 +30,7 @@ import java.util.List;
 import org.spout.renderer.api.model.Model;
 import org.spout.renderer.api.model.StringModel;
 
-import org.obsidianbox.magma.gui.Form;
+import org.obsidianbox.magma.gui.old.Form;
 
 public class Label extends LabelBase {
     private final List<Model> models = new LinkedList<>();

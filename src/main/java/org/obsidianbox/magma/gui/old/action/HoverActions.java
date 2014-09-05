@@ -21,48 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui;
+package org.obsidianbox.magma.gui.old.action;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import org.spout.renderer.api.model.Model;
-
-public class Container extends Control {
-    private final List<Model> models = new LinkedList<>();
-    private final Set<Control> controls = new LinkedHashSet<>();
-
-    protected Container(Form form, int x, int y, int width, int height) {
-        this(form, form.getName() + "_container_root", x, y, width, height);
-    }
-
-    public Container(Form form, String name, int x, int y, int width, int height) {
-        super(form, name, x, y, width, height);
-    }
-
-    @Override
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public boolean add(Control control) {
-        if (!(control instanceof Container) && control.getContainer() != null) {
-            return false;
-        }
-
-        if (!controls.add(control)) {
-            return false;
-        }
-
-        models.addAll(control.getModels());
-        control.setContainer(this);
-        return true;
-    }
-
-    public Set<Control> getAll() {
-        return Collections.unmodifiableSet(controls);
-    }
+public enum HoverActions {
+    BEGIN,
+    END
 }

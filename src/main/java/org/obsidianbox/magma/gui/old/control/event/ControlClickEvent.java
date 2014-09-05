@@ -21,32 +21,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control.event;
+package org.obsidianbox.magma.gui.old.control.event;
+
+import java.util.Arrays;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import org.lwjgl.input.*;
 
-import org.obsidianbox.magma.gui.Control;
+import org.obsidianbox.magma.gui.old.Control;
+import org.obsidianbox.magma.gui.old.action.ClickActions;
 
+/**
+ * Callback when a control is clicked by the user.
+ */
 @Cancelable
 @SideOnly(Side.CLIENT)
-public final class ControlVisibilityEvent extends ControlEvent {
-    private final boolean visible;
+public class ControlClickEvent extends ControlEvent {
+    private final int x;
+    private final int y;
+    private final ClickActions type;
+    private final Keyboard[] keys;
 
-    public ControlVisibilityEvent(Control control, boolean visible) {
+    public ControlClickEvent(Control control, int x, int y, ClickActions type, Keyboard... keys) {
         super(control);
-        this.visible = visible;
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.keys = keys;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public ClickActions getType() {
+        return type;
+    }
+
+    public Keyboard[] getKeys() {
+        return keys;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (visible ? 1 : 0);
+        result = 31 * result + x;
+        result = 31 * result + y;
+        result = 31 * result + type.hashCode();
+        result = 31 * result + Arrays.hashCode(keys);
         return result;
     }
 
@@ -55,23 +83,26 @@ public final class ControlVisibilityEvent extends ControlEvent {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ControlClickEvent)) {
             return false;
         }
         if (!super.equals(o)) {
             return false;
         }
 
-        final ControlVisibilityEvent that = (ControlVisibilityEvent) o;
+        final ControlClickEvent that = (ControlClickEvent) o;
 
-        return visible == that.visible;
+        return x == that.x && y == that.y && Arrays.equals(keys, that.keys) && type == that.type;
     }
 
     @Override
     public String toString() {
-        return "ControlVisibilityActionEvent{" +
-                getControl() +
-                ", visible=" + visible +
+        return getClass().getSimpleName() + " {" +
+                "control= " + getControl() +
+                ", x=" + x +
+                ", y=" + y +
+                ", type=" + type +
+                ", keys=" + Arrays.toString(keys) +
                 '}';
     }
 }

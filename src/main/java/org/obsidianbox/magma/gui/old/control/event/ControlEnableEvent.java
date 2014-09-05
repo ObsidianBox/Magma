@@ -21,57 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.obsidianbox.magma.gui.control.event;
-
-import java.util.Arrays;
+package org.obsidianbox.magma.gui.old.control.event;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import org.lwjgl.input.*;
 
-import org.obsidianbox.magma.gui.Control;
-import org.obsidianbox.magma.gui.action.HoverActions;
+import org.obsidianbox.magma.gui.old.Control;
 
+/**
+ * Callback when a control is enabled or disabled.
+ */
 @Cancelable
 @SideOnly(Side.CLIENT)
-public class ControlHoverEvent extends ControlEvent {
-    private final int x;
-    private final int y;
-    private final HoverActions action;
-    private final Keyboard[] keys;
+public final class ControlEnableEvent extends ControlEvent {
+    private final boolean enabled;
 
-    public ControlHoverEvent(Control control, int x, int y, HoverActions action, Keyboard... keys) {
+    public ControlEnableEvent(Control control, boolean enabled) {
         super(control);
-        this.x = x;
-        this.y = y;
-        this.action = action;
-        this.keys = keys;
+        this.enabled = enabled;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public HoverActions getAction() {
-        return action;
-    }
-
-    public Keyboard[] getKeys() {
-        return keys;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + x;
-        result = 31 * result + y;
-        result = 31 * result + action.hashCode();
-        result = 31 * result + Arrays.hashCode(keys);
+        result = 31 * result + (enabled ? 1 : 0);
         return result;
     }
 
@@ -87,19 +65,16 @@ public class ControlHoverEvent extends ControlEvent {
             return false;
         }
 
-        final ControlHoverEvent that = (ControlHoverEvent) o;
+        final ControlEnableEvent that = (ControlEnableEvent) o;
 
-        return x == that.x && y == that.y && Arrays.equals(keys, that.keys) && action == that.action;
+        return enabled == that.enabled;
     }
 
     @Override
     public String toString() {
-        return "ControlHoveredEvent{" +
+        return "ControlEnableEvent{" +
                 getControl() +
-                ", x=" + x +
-                ", y=" + y +
-                ", action=" + action +
-                ", keys=" + Arrays.toString(keys) +
+                ", enabled=" + enabled +
                 '}';
     }
 }
