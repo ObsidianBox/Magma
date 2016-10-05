@@ -43,6 +43,7 @@ import net.minecraft.world.World;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
+import org.obsidianbox.magma.util.Location;
 
 public class SimpleSlab extends BlockSlab {
     private final Addon addon;
@@ -111,6 +112,10 @@ public class SimpleSlab extends BlockSlab {
     @Override
     public Item getItem(World world, int x, int y, int z) {
         return Item.getItemFromBlock(singleSlab);
+    }
+    
+    public Item getItem(Location loc) {
+        return this.getItem(loc.getWorld(), (int) loc.getX(), (int) loc.getY(), (int) loc.getZ());
     }
 
     @Override
