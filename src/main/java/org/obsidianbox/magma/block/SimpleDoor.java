@@ -43,6 +43,7 @@ import net.minecraft.world.World;
 
 import org.obsidianbox.magma.addon.Addon;
 import org.obsidianbox.magma.lang.Languages;
+import org.obsidianbox.magma.util.Location;
 
 public class SimpleDoor extends BlockDoor {
     private final Addon addon;
@@ -106,10 +107,18 @@ public class SimpleDoor extends BlockDoor {
             return topIcon;
         }
     }
+    
+    public IIcon getIcon(IBlockAccess blockAccess, Location loc, int val1) {
+        return this.getIcon(blockAccess, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), val1);
+    }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int val1, float val2, float val3, float val4) {
         return !isPoweredOnly;
+    }
+    
+    public boolean onBlockActivated(World world, Location loc, EntityPlayer player, int val1, float val2, float val3, float val4) {
+        return this.onBlockActivated(world, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), player, val1, val2, val3, val4);
     }
 
     @Override
